@@ -1,12 +1,12 @@
-#include "gamepad.hpp"
+#include "dual_sense/gamepad.hpp"
 
 #include <locale>
 #include <cstring>
 
 #include <hidapi.h>
 
-#include "helper.hpp"
-#include "report.hpp"
+#include "dual_sense/detail/helper.hpp"
+#include "dual_sense/detail/report.hpp"
 
 
 namespace dual_sense
@@ -109,7 +109,6 @@ namespace dual_sense
 		{
 			throw std::runtime_error("Failed to open device path");
 		}
-
 	}
 
 	State Gamepad::poll() const
@@ -126,28 +125,28 @@ namespace dual_sense
 				                                        : reinterpret_cast<detail::ReportBT *>(report)->common;
 
 		return
-				{
-						{common.left_pad_x, common.left_pad_y},
-						{common.right_pad_x, common.right_pad_y},
-						{common.left_trigger, common.left_trigger_feedback},
-						{common.right_trigger, common.right_trigger_feedback},
-						static_cast<State::DpadDirection>(common.dpad & 0b1111),
-						extract_button_pad(common.dpad),
-						extract_buttons(common.buttons),
-						{
-								static_cast<int16_t>(le_to_native(common.gyro_pitch)),
-								static_cast<int16_t>(le_to_native(common.gyro_yaw)),
-								static_cast<int16_t>(le_to_native(common.gyro_roll))
-						},
-						{
-								static_cast<int16_t>(le_to_native(common.acceleration_x)),
-								static_cast<int16_t>(le_to_native(common.acceleration_y)),
-								static_cast<int16_t>(le_to_native(common.acceleration_z))
-						},
-						extract_touch_point(common.touch_data_0),
-						extract_touch_point(common.touch_data_1),
-						extract_battery_state(common.battery_audio_state, common.battery_level),
-						extract_audio_state(common.battery_audio_state)
-				};
+			{
+					{common.left_pad_x, common.left_pad_y},
+					{common.right_pad_x, common.right_pad_y},
+					{common.left_trigger, common.left_trigger_feedback},
+					{common.right_trigger, common.right_trigger_feedback},
+					static_cast<State::DPadDirection>(common.dpad & 0b1111),
+					extract_button_pad(common.dpad),
+					extract_buttons(common.buttons),
+					{
+							static_cast<int16_t>(le_to_native(common.gyro_pitch)),
+							static_cast<int16_t>(le_to_native(common.gyro_yaw)),
+							static_cast<int16_t>(le_to_native(common.gyro_roll))
+					},
+					{
+							static_cast<int16_t>(le_to_native(common.acceleration_x)),
+							static_cast<int16_t>(le_to_native(common.acceleration_y)),
+							static_cast<int16_t>(le_to_native(common.acceleration_z))
+					},
+					extract_touch_point(common.touch_data_0),
+					extract_touch_point(common.touch_data_1),
+					extract_battery_state(common.battery_audio_state, common.battery_level),
+					extract_audio_state(common.battery_audio_state)
+			};
 	}
 }

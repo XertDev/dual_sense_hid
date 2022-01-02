@@ -1,4 +1,4 @@
-## Dual Sense Support (WIP)
+## Unofficial Dual Sense Support (WIP)
 <a target="_blank" href="LICENSE" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 <br>
 <span>Support for reading state from DualSense pad written in c++.</span>

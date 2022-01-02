@@ -68,14 +68,7 @@ endif()
 find_package(hidapi REQUIRED)
 
 # Library
-add_library(dual_sense
-        include/enums.hpp
-        src/gamepad.cpp
-        include/gamepad.hpp
-        include/device_info.hpp
-        include/report.hpp
-        include/state.hpp
-        include/helper.hpp)
+add_library(dual_sense)
 
 target_include_directories(
         dual_sense
@@ -100,11 +93,12 @@ target_link_libraries(
 target_sources(
         dual_sense
         PRIVATE
-        include/enums.hpp
-        include/device_info.hpp
-        include/report.hpp
-        include/state.hpp
-        include/gamepad.hpp
+        include/dual_sense/enums.hpp
+        include/dual_sense/gamepad.hpp
+        include/dual_sense/device_info.hpp
+        include/dual_sense/state.hpp
+        include/dual_sense/detail/report.hpp
+        include/dual_sense/detail/helper.hpp
 
         src/gamepad.cpp
 )
@@ -116,3 +110,28 @@ if(ENABLE_EXAMPLES)
     add_subdirectory(example)
 endif()
 
+option(ENABLE_DOCS "Enable docs" FALSE)
+if(ENABLE_DOCS)
+    find_package(Doxygen REQUIRED)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile.out)
+
+    configure_file(docs/Doxyfile ${DOXYGEN_OUT})
+
+    include(FetchContent)
+    FetchContent_Declare(
+            mcss
+            GIT_REPOSITORY git://github.com/mosra/m.css
+    )
+    FetchContent_MakeAvailable(mcss)
+
+    add_custom_target(
+            docs
+            COMMAND ${Python3_EXECUTABLE} ${mcss_SOURCE_DIR}/documentation/doxygen.py ${DOXYGEN_OUT} --debug
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM
+    )
+
+endif()

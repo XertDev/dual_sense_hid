@@ -5,7 +5,7 @@
 #include <tabulate/table.hpp>
 #include <fmt/format.h>
 
-#include "gamepad.hpp"
+#include "dual_sense/gamepad.hpp"
 
 
 using namespace tabulate;
@@ -19,27 +19,27 @@ namespace
 		return connection_type == ConnectionType::USB ? "USB" : "BT";
 	}
 
-	inline std::string to_string(State::DpadDirection direction)
+	inline std::string to_string(State::DPadDirection direction)
 	{
 		switch(direction)
 		{
-			case State::DpadDirection::UP:
+			case State::DPadDirection::UP:
 				return "UP";
-			case State::DpadDirection::UP_RIGHT:
+			case State::DPadDirection::UP_RIGHT:
 				return "UP_RIGHT";
-			case State::DpadDirection::RIGHT:
+			case State::DPadDirection::RIGHT:
 				return "RIGHT";
-			case State::DpadDirection::DOWN_RIGHT:
+			case State::DPadDirection::DOWN_RIGHT:
 				return "DOWN_RIGHT";
-			case State::DpadDirection::DOWN:
+			case State::DPadDirection::DOWN:
 				return "DOWN";
-			case State::DpadDirection::DOWN_LEFT:
+			case State::DPadDirection::DOWN_LEFT:
 				return "DOWN_LEFT";
-			case State::DpadDirection::LEFT:
+			case State::DPadDirection::LEFT:
 				return "LEFT";
-			case State::DpadDirection::UP_LEFT:
+			case State::DPadDirection::UP_LEFT:
 				return "UP_LEFT";
-			case State::DpadDirection::NONE:
+			case State::DPadDirection::NONE:
 				return "NONE";
 			default:
 				return "UNKNOWN";
@@ -129,7 +129,7 @@ Table trigger_to_table(const State::Trigger& left, const State::Trigger& right)
 	return trigger_table;
 }
 
-Table dpad_button_pad_to_table(const State::DpadDirection& dpad_direction, const State::ButtonPad& button_pad)
+Table dpad_button_pad_to_table(const State::DPadDirection& dpad_direction, const State::ButtonPad& button_pad)
 {
 	Table buttons_table;
 	buttons_table.add_row(Row_t{"DPad & Button pad"});
