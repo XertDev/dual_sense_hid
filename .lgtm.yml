@@ -1,0 +1,55 @@
+path_classifiers:
+  library:
+    - include: "include/*"
+
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - cmake
+        - libhidapi-dev
+        - libssl-dev
+        - bison
+        - flex
+
+    after_prepare:
+      - export LC_ALL=C.UTF-8
+      - export CC=clang
+      - export CXX=clang++
+      - git clone https://gcc.gnu.org/git/gcc.git --branch=releases/gcc-10 --single-branch --depth=1 --quiet
+      - cd gcc
+      - ./contrib/download_prerequisites >/dev/null 2>&1
+      - cd ..
+      - mkdir gcc-build
+      - cd gcc-build
+      - ../gcc/configure CC=clang CXX=clang++ CFLAGS='-march=native -w' CXXFLAGS='-march=native -w' --prefix=$HOME/.local --enable-languages=c,c++ --enable-checking=release --disable-bootstrap --with-gcc-major-version-only --with-default-libstdcxx-abi=new --enable-libstdcxx-time=yes --enable-linker-build-id --enable-gnu-unique-object --enable-plugin --disable-werror --enable-lto --with-cpu=native --with-arch=native --with-tune=native --disable-multilib --disable-libada --disable-libsanitizer --enable-silent-rules --quiet >/dev/null 2>&1
+      - make --jobs=$(nproc) --quiet >/dev/null 2>&1
+      - make install --quiet >/dev/null 2>&1
+      - export PATH=$HOME/.local/bin:$PATH
+      - export LD_LIBRARY_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH
+      - export LIBRARY_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LIBRARY_PATH
+      - export LD_RUN_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LD_RUN_PATH
+      - export CPLUS_INCLUDE_PATH=$HOME/.local/include/c++/$(g++ -dumpspecs | grep --after-context=1 '*version:' | tail --lines=1):$CPLUS_INCLUDE_PATH
+      - export CPATH=$HOME/.local/include:$CPATH
+      - ln --symbolic $HOME/.local/bin/gcc $HOME/.local/bin/cc
+      - export CC=$HOME/.local/bin/gcc
+      - export CXX=$HOME/.local/bin/g++
+      - wget -O cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1.tar.gz
+      - tar zxf cmake.tar.gz
+      - cd cmake-*/
+      - mkdir build
+      - cd build
+      - cmake -DCMAKE_INSTALL_PREFIX:PATH=~/.local/ -DCMAKE_BUILD_TYPE=Release ..
+      - make install
+      - export PATH=~/.local/bin:$PATH
+      - cmake --version
+
+    configure:
+      command:
+        - mkdir -p _lgtm_build
+        - cd _lgtm_build
+        - cmake -DCMAKE_BUILD_TYPE=Release ..
+    index:
+      build_command:
+        - cd _lgtm_build
+        - make -j 2

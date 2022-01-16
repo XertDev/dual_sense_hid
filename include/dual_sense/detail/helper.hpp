@@ -15,7 +15,7 @@ namespace dual_sense::detail
 		#endif
 #endif
 #if !defined(dual_sense_bswap16)
-	inline uin16_t dual_sense_bswap16(uint16_t val)
+	inline uint16_t dual_sense_bswap16(uint16_t val)
 	{
 		return  ((val << 8)  & 0xff00u) |
 		        ((val >> 8)  & 0x00ffu);
