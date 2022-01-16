@@ -1,5 +1,6 @@
 ## Unofficial Dual Sense Support (WIP)
 <a target="_blank" href="LICENSE" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+[![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](https://xertdev.github.io/dual_sense/)
 <br>
 <span>Support for reading state from DualSense pad written in c++.</span>
 ### Example

@@ -13,34 +13,6 @@ namespace dual_sense
 {
 	namespace
 	{
-		inline dual_sense::State::ButtonPad extract_button_pad(uint8_t state)
-		{
-			uint8_t button_pad_values = state >> 4;
-
-			return
-					{
-							static_cast<bool>(button_pad_values & 0b1000),
-							static_cast<bool>(button_pad_values & 0b0100),
-							static_cast<bool>(button_pad_values & 0b0010),
-							static_cast<bool>(button_pad_values & 0b0001)
-					};
-		}
-
-		inline dual_sense::State::Buttons extract_buttons(const uint8_t state[2])
-		{
-			return
-					{
-							static_cast<bool>(state[0] & 0x01), static_cast<bool>(state[0] & 0x02),
-							static_cast<bool>(state[0] & 0x04), static_cast<bool>(state[0] & 0x08),
-							static_cast<bool>(state[0] & 0x10),
-							static_cast<bool>(state[0] & 0x20),
-							static_cast<bool>(state[0] & 0x40), static_cast<bool>(state[0] & 0x80),
-							static_cast<bool>(state[1] & 0x01),
-							static_cast<bool>(state[1] & 0x02),
-							static_cast<bool>(state[1] & 0x04)
-					};
-		}
-
 		inline dual_sense::State::TouchPoint extract_touch_point(const uint8_t touch_data[4])
 		{
 			const auto x = static_cast<uint16_t>(((touch_data[2] & 0x0f) << 8) | touch_data[1]);
@@ -51,26 +23,6 @@ namespace dual_sense
 							(touch_data[0] & 0x80) == 0,
 							x, y,
 							static_cast<uint8_t>(touch_data[0] & 0x7f)
-					};
-		}
-
-		inline dual_sense::State::Battery extract_battery_state(uint8_t charging_state_data, uint8_t charging_level_data)
-		{
-			return
-					{
-							static_cast<bool>(charging_state_data & 0x10),
-							static_cast<bool>(charging_level_data & 0x20),
-							static_cast<uint8_t>(charging_level_data & 0x0f)
-					};
-		}
-
-		inline dual_sense::State::Audio extract_audio_state(uint8_t audio_state_data)
-		{
-			return
-					{
-							static_cast<bool>(audio_state_data & 4),
-							static_cast<bool>(audio_state_data & 1),
-							static_cast<bool>(audio_state_data & 2)
 					};
 		}
 	}
@@ -128,11 +80,34 @@ namespace dual_sense
 			{
 					{common.left_pad_x, common.left_pad_y},
 					{common.right_pad_x, common.right_pad_y},
-					{common.left_trigger, common.left_trigger_feedback},
-					{common.right_trigger, common.right_trigger_feedback},
-					static_cast<State::DPadDirection>(common.dpad & 0b1111),
-					extract_button_pad(common.dpad),
-					extract_buttons(common.buttons),
+					{
+						common.left_trigger,
+						common.left_trigger_feedback,
+					},
+					{
+						common.right_trigger,
+						common.right_trigger_feedback,
+					},
+					static_cast<State::DPadDirection>(common.dpad),
+					{
+						static_cast<bool>(common.triangle),
+						static_cast<bool>(common.circle),
+						static_cast<bool>(common.cross),
+						static_cast<bool>(common.square)
+					},
+					{
+							static_cast<bool>(common.buttons.l1),
+							static_cast<bool>(common.buttons.r1),
+							static_cast<bool>(common.buttons.l2),
+							static_cast<bool>(common.buttons.r2),
+							static_cast<bool>(common.buttons.create),
+							static_cast<bool>(common.buttons.menu),
+							static_cast<bool>(common.buttons.l3),
+							static_cast<bool>(common.buttons.r3),
+							static_cast<bool>(common.buttons.home),
+							static_cast<bool>(common.buttons.touchpad),
+							static_cast<bool>(common.buttons.mute)
+					},
 					{
 							static_cast<int16_t>(le_to_native(common.gyro_pitch)),
 							static_cast<int16_t>(le_to_native(common.gyro_yaw)),
@@ -143,10 +118,18 @@ namespace dual_sense
 							static_cast<int16_t>(le_to_native(common.acceleration_y)),
 							static_cast<int16_t>(le_to_native(common.acceleration_z))
 					},
+					common.temperature,
 					extract_touch_point(common.touch_data_0),
 					extract_touch_point(common.touch_data_1),
-					extract_battery_state(common.battery_audio_state, common.battery_level),
-					extract_audio_state(common.battery_audio_state)
+					{
+						common.battery_level,
+						static_cast<State::PowerStatus>(common.power_status)
+					},
+					{
+						static_cast<bool>(common.muted),
+						static_cast<bool>(common.headphones),
+						static_cast<bool>(common.microphone)
+					}
 			};
 	}
 }

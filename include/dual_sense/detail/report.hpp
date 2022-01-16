@@ -6,6 +6,28 @@
 namespace dual_sense::detail
 {
 #pragma pack(push, 1)
+
+	struct ReportButtons
+	{
+		uint8_t l1: 1;
+		uint8_t r1: 1;
+
+		uint8_t l2: 1;
+		uint8_t r2: 1;
+
+		uint8_t create: 1;
+		uint8_t menu: 1;
+
+		uint8_t l3: 1;
+		uint8_t r3: 1;
+
+		uint8_t home: 1;
+		uint8_t touchpad: 1;
+		uint8_t mute: 1;
+
+		uint8_t gap: 5;
+	};
+
 	struct ReportCommon
 	{
 		uint8_t left_pad_x;
@@ -17,13 +39,18 @@ namespace dual_sense::detail
 		uint8_t left_trigger;
 		uint8_t right_trigger;
 
-		uint8_t frame_counter; //frame counter only USB, 1 for BT
+		uint8_t gap_0; // 1 for BT
 
-		uint8_t dpad;
+		uint8_t dpad: 4;
 
-		uint8_t buttons[2];
+		uint8_t square: 1;
+		uint8_t cross: 1;
+		uint8_t circle: 1;
+		uint8_t triangle: 1;
 
-		uint8_t gap_0;
+		ReportButtons buttons;
+
+		uint8_t gap_1;
 
 		uint8_t timestamp_1[4];
 
@@ -35,23 +62,33 @@ namespace dual_sense::detail
 		uint16_t acceleration_y;
 		uint16_t acceleration_z;
 
-		uint8_t gap_1[5];
+		uint8_t gap_2[4];
+		uint8_t temperature;
 
 		uint8_t touch_data_0[4];
 		uint8_t touch_data_1[4];
 
-		uint8_t gap_2;
+		uint8_t touch_timestamp;
 
-		uint8_t left_trigger_feedback;
-		uint8_t right_trigger_feedback;
-
-		uint8_t gap_3[5];
+		uint8_t right_trigger_feedback: 4;
+		uint8_t right_trigger_unknown: 4;
+		uint8_t left_trigger_feedback: 4;
+		uint8_t left_trigger_unknown: 4;
 
 		uint8_t timestamp_2[4];
 
-		uint8_t battery_level;
+		uint8_t gap_3;
 
-		uint8_t battery_audio_state;
+		uint8_t timestamp_3[4];
+
+		uint8_t battery_level: 4;
+		uint8_t power_status: 4;
+
+		uint8_t headphones: 1;
+		uint8_t microphone: 1;
+		uint8_t muted: 1;
+
+		uint8_t gap_4: 5;
 
 		uint8_t gap_5[9];
 	};

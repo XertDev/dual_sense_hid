@@ -114,12 +114,12 @@ Table trigger_to_table(const State::Trigger& left, const State::Trigger& right)
 	const auto left_value = std::to_string(left.value);
 	const auto right_value = std::to_string(right.value);
 
-	const auto left_feedback = std::to_string(left.feedback);
-	const auto right_feedback = std::to_string(right.feedback);
+	const auto left_stop = std::to_string(left.stop_location);
+	const auto right_stop = std::to_string(right.stop_location);
 
 	Table trigger_value_table;
 	trigger_value_table.add_row(Row_t{"Left", left_value, "Right", right_value});
-	trigger_value_table.add_row(Row_t{"Left feedback", left_feedback, "Right feedback", right_feedback});
+	trigger_value_table.add_row(Row_t{"Left stop location", left_stop, "Right stop location", right_stop});
 
 	trigger_value_table.column(1).format().border_left(":");
 	trigger_value_table.column(3).format().border_left(":");
@@ -164,7 +164,7 @@ Table other_buttons_to_table(const State::Buttons& buttons)
 	button_state_table.add_row({"l3", std::to_string(buttons.l3), "r3", std::to_string(buttons.r3)});
 
 	button_state_table.add_row({"create", std::to_string(buttons.create), "menu", std::to_string(buttons.menu)});
-	button_state_table.add_row({"ps", std::to_string(buttons.ps), "touchpad", std::to_string(buttons.touchpad)});
+	button_state_table.add_row({"home", std::to_string(buttons.home), "touchpad", std::to_string(buttons.touchpad)});
 	button_state_table.add_row({"mute", std::to_string(buttons.mute)});
 
 	button_state_table.column(1).format().border_left(":");
@@ -249,8 +249,8 @@ Table battery_to_table(const State::Battery& battery)
 	battery_table.add_row(Row_t{"Battery"});
 	battery_table[0].format().font_color(Color::yellow).font_align(FontAlign::center);
 
-	const auto charging = std::to_string(battery.charging);
-	const auto charged = std::to_string(battery.charged);
+	const auto charging = std::to_string(battery.power_status == State::PowerStatus::CHARGING);
+	const auto charged = std::to_string(battery.power_status == State::PowerStatus::CHARGED);
 	const auto level = std::to_string(battery.level);
 
 	Table battery_value_table;

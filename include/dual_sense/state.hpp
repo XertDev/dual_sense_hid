@@ -46,7 +46,7 @@ namespace dual_sense
 			bool menu; /*!< Menu button state */
 			bool l3; /*!< Left analog button state */
 			bool r3; /*!< Right analog button state */
-			bool ps; /*!< PS button state */
+			bool home; /*!< Home button state */
 			bool touchpad; /*!< Touchpad button state */
 			bool mute; /*!< Mute button state */
 		};
@@ -79,13 +79,26 @@ namespace dual_sense
 		};
 
 		/**
+		 * @enum PowerStatus
+		 * @brief Status of power
+		 */
+		enum class PowerStatus: uint8_t
+		{
+			DISCHARGING     = 0x00, /*!< Battery is discharging */
+			CHARGING        = 0x01, /*!< Battery is charging */
+			CHARGED         = 0x02, /*!< Battery is charged */
+			VOLTAGE_ERROR   = 0x0A, /*!< Voltage error */
+			TEMP_ERROR      = 0x0B, /*!< Temperature error */
+			CHARGING_ERROR  = 0x0F  /*!< Unknown error */
+		};
+
+		/**
 		 * @brief State of gamepad's battery
 		 */
 		struct Battery
 		{
-			bool charging; /*!< true if device is charging */
-			bool charged; /*!< true if battery is charged */
 			uint8_t level; /*!< Current battery level */
+			PowerStatus power_status; /*!< Power status */
 		};
 
 		/**
@@ -133,7 +146,7 @@ namespace dual_sense
 		struct Trigger
 		{
 			uint8_t value; /*!< Trigger position */
-			uint8_t feedback; /*!< Feedback force applied by actuator */
+			uint8_t stop_location; /*!< Trigger stop location */
 		};
 
 		/**
@@ -162,6 +175,8 @@ namespace dual_sense
 
 		Gyro gyro; /*!< Gyroscope state */
 		Acceleration acceleration; /*!< Accelerometer state */
+
+		uint8_t temperature; /*!< Gamepad temperature */
 
 		/**
 		 * @name Touchpad state
