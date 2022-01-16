@@ -48,7 +48,7 @@
           <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="state_8hpp.html">&lt;dual_sense/state.hpp&gt;</a></div>
         </h1>
         <p><a href="structdual__sense_1_1State.html" class="m-doc">State</a> of analogs, buttons, etc. of gamepad.</p>
-        <div class="m-block m-default">
+        <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li>
@@ -62,7 +62,7 @@
               </ul>
             </li>
           </ul>
-        </div>
+        </nav>
         <section id="pub-types">
           <h2><a href="#pub-types">Public types</a></h2>
           <dl class="m-doc">
@@ -114,6 +114,15 @@
               <a href="#a0af2de0cefbc4579464be45b75768e2cab50339a10e1de285ac99d4c3990b8693" class="m-doc">NONE</a> = 8 }</span>
             </dt>
             <dd>Direction of pressed DigitalPad buttons.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">enum class <a href="#a66580f53231d39aaf609d82b21e0d719" class="m-doc">PowerStatus</a>: uint8_t { </span><span class="m-doc-wrap"><a href="#a66580f53231d39aaf609d82b21e0d719a0ba08407785651accc9b80a0b1abc753" class="m-doc">DISCHARGING</a> = 0x00,
+              <a href="#a66580f53231d39aaf609d82b21e0d719a3a8ea4a62d0682faf83d7372669b5e9b" class="m-doc">CHARGING</a> = 0x01,
+              <a href="#a66580f53231d39aaf609d82b21e0d719a9a28cd61edeed890818e9811e64af223" class="m-doc">CHARGED</a> = 0x02,
+              <a href="#a66580f53231d39aaf609d82b21e0d719ac0f82f7262676ec550dc5c44f0171dba" class="m-doc">VOLTAGE_ERROR</a> = 0x0A,
+              <a href="#a66580f53231d39aaf609d82b21e0d719a38fbae8d57a73c65b072fda965d3c7bf" class="m-doc">TEMP_ERROR</a> = 0x0B,
+              <a href="#a66580f53231d39aaf609d82b21e0d719ac4ca72b8a07f653e79fca2d83adee7ba" class="m-doc">CHARGING_ERROR</a> = 0x0F }</span>
+            </dt>
+            <dd>Status of power.</dd>
           </dl>
         </section>
         <section id="pub-attribs">
@@ -137,6 +146,10 @@
             <dd></dd>
             <dt>
               <a href="structdual__sense_1_1State_1_1Acceleration.html" class="m-doc">Acceleration</a> <a href="#ad48195d607b7c79f8be0e51c7c263032" class="m-doc">acceleration</a>
+            </dt>
+            <dd></dd>
+            <dt>
+              uint8_t <a href="#a8a0d6e298dd340040685e87675932aee" class="m-doc">temperature</a>
             </dt>
             <dd></dd>
             <dt>
@@ -256,6 +269,53 @@
               </tbody>
             </table>
           </div></section>
+          <section class="m-doc-details" id="a66580f53231d39aaf609d82b21e0d719"><div>
+            <h3>
+              enum class dual_sense::<wbr />State::<wbr /><a href="#a66580f53231d39aaf609d82b21e0d719" class="m-doc-self">PowerStatus</a>: uint8_t
+            </h3>
+            <p>Status of power.</p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719a0ba08407785651accc9b80a0b1abc753" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719a0ba08407785651accc9b80a0b1abc753">DISCHARGING</a></td>
+                  <td>
+<p><a href="structdual__sense_1_1State_1_1Battery.html" class="m-doc">Battery</a> is discharging</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719a3a8ea4a62d0682faf83d7372669b5e9b" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719a3a8ea4a62d0682faf83d7372669b5e9b">CHARGING</a></td>
+                  <td>
+<p><a href="structdual__sense_1_1State_1_1Battery.html" class="m-doc">Battery</a> is charging</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719a9a28cd61edeed890818e9811e64af223" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719a9a28cd61edeed890818e9811e64af223">CHARGED</a></td>
+                  <td>
+<p><a href="structdual__sense_1_1State_1_1Battery.html" class="m-doc">Battery</a> is charged</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719ac0f82f7262676ec550dc5c44f0171dba" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719ac0f82f7262676ec550dc5c44f0171dba">VOLTAGE_ERROR</a></td>
+                  <td>
+<p>Voltage error</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719a38fbae8d57a73c65b072fda965d3c7bf" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719a38fbae8d57a73c65b072fda965d3c7bf">TEMP_ERROR</a></td>
+                  <td>
+<p>Temperature error</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a66580f53231d39aaf609d82b21e0d719ac4ca72b8a07f653e79fca2d83adee7ba" class="m-doc-self" id="a66580f53231d39aaf609d82b21e0d719ac4ca72b8a07f653e79fca2d83adee7ba">CHARGING_ERROR</a></td>
+                  <td>
+<p>Unknown error</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
         </section>
         <section>
           <h2>Variable documentation</h2>
@@ -288,6 +348,12 @@
               <a href="structdual__sense_1_1State_1_1Acceleration.html" class="m-doc">Acceleration</a> dual_sense::<wbr />State::<wbr /><a href="#ad48195d607b7c79f8be0e51c7c263032" class="m-doc-self">acceleration</a>
             </h3>
 <p>Accelerometer state</p>
+          </div></section>
+          <section class="m-doc-details" id="a8a0d6e298dd340040685e87675932aee"><div>
+            <h3>
+              uint8_t dual_sense::<wbr />State::<wbr /><a href="#a8a0d6e298dd340040685e87675932aee" class="m-doc-self">temperature</a>
+            </h3>
+<p><a href="classdual__sense_1_1Gamepad.html" class="m-doc">Gamepad</a> temperature</p>
           </div></section>
           <section class="m-doc-details" id="a37a8900eff48c12695cd67b9b9bb3f00"><div>
             <h3>
@@ -376,8 +442,8 @@
     </div>
   </div>
 </div>
-<script src="search-v1.js"></script>
-<script src="searchdata-v1.js" async="async"></script>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
 <footer><nav>
   <div class="m-container">
     <div class="m-row">
