@@ -1,4 +1,5 @@
 ## Unofficial Dual Sense Support (WIP)
+[![Ubuntu](https://github.com/XertDev/dual_sense/actions/workflows/ubuntu.yml/badge.svg?branch=master)](https://github.com/XertDev/dual_sense/actions/workflows/ubuntu.yml)
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/XertDev/dual_sense.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/XertDev/dual_sense/context:cpp)
 <a target="_blank" href="LICENSE" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 [![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](https://xertdev.github.io/dual_sense/)
