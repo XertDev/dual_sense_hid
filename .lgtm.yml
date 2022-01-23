@@ -1,7 +1,3 @@
-path_classifiers:
-  library:
-    - include: "include/*"
-
 extraction:
   cpp:
     prepare:
@@ -16,7 +12,7 @@ extraction:
       - export LC_ALL=C.UTF-8
       - export CC=clang
       - export CXX=clang++
-      - git clone https://gcc.gnu.org/git/gcc.git --branch=releases/gcc-10 --single-branch --depth=1 --quiet
+      - git clone https://gcc.gnu.org/git/gcc.git --branch=releases/gcc-11 --single-branch --depth=1 --quiet
       - cd gcc
       - ./contrib/download_prerequisites >/dev/null 2>&1
       - cd ..
