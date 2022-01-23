@@ -10,7 +10,7 @@ namespace dual_sense::detail
 #if defined(_MSC_VER)
 #define dual_sense_bswap16 _byteswap_ushort;
 #elif defined(__has_builtin)
-	#if __has_builtin(__builtin_bswap32)
+	#if __has_builtin(__builtin_bswap16)
 		#define dual_sense_bswap16 __builtin_bswap16
 		#endif
 #endif

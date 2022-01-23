@@ -110,10 +110,58 @@ namespace dual_sense::detail
 
 		uint8_t rest[13];
 	};
+
+	//Feature reports
+
+	struct PairingInfoReport
+	{
+		uint8_t report_id;
+
+		uint8_t client_mac[6];
+		uint8_t gap[3];
+		uint8_t host_mac[6];
+
+		uint8_t crc[4];
+	};
+
+	struct CalibrationReport
+	{
+		uint8_t report_id;
+
+		uint16_t gyro_pitch_bias;
+		uint16_t gyro_yaw_bias;
+		uint16_t gyro_roll_bias;
+
+		uint16_t gyro_pitch_plus;
+		uint16_t gyro_pitch_minus;
+
+		uint16_t gyro_yaw_plus;
+		uint16_t gyro_yaw_minus;
+
+		uint16_t gyro_roll_plus;
+		uint16_t gyro_roll_minus;
+
+		uint16_t gyro_speed_plus;
+		uint16_t gyro_speed_minus;
+
+		uint16_t accel_x_plus;
+		uint16_t accel_x_minus;
+
+		uint16_t accel_y_plus;
+		uint16_t accel_y_minus;
+
+		uint16_t accel_z_plus;
+		uint16_t accel_z_minus;
+
+		uint8_t gap[2];
+	};
 #pragma pack(pop)
 
 	static_assert(sizeof(ReportUSB) == 64);
 	static_assert(sizeof(ReportBT) == 78);
+
+	static_assert(sizeof(PairingInfoReport) == 20);
+	static_assert(sizeof(CalibrationReport) == 37);
 }
 
 #endif //DUAL_SENSE_REPORT_HPP

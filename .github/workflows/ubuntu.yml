@@ -24,10 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install gcc 10
+      - name: Install gcc 11
         run: |
           sudo apt update
-          sudo apt install gcc-10 g++-10
+          sudo apt install gcc-11 g++-11
 
       - name: Install dependencies
         run: |
@@ -40,8 +40,8 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Release
         env:
-          CC:   gcc-10
-          CXX:  g++-10
+          CC:   gcc-11
+          CXX:  g++-11
 
       - name: Build
         working-directory: ${{github.workspace}}/build

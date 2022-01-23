@@ -8,6 +8,8 @@
 #include "dual_sense/detail/helper.hpp"
 #include "dual_sense/detail/report.hpp"
 
+static constexpr uint8_t CALIBRATION_REPORT_ID = 0x05;
+
 
 namespace dual_sense
 {
@@ -109,14 +111,14 @@ namespace dual_sense
 							static_cast<bool>(common.buttons.mute)
 					},
 					{
-							static_cast<int16_t>(le_to_native(common.gyro_pitch)),
-							static_cast<int16_t>(le_to_native(common.gyro_yaw)),
-							static_cast<int16_t>(le_to_native(common.gyro_roll))
+							std::bit_cast<int16_t>(le_to_native(common.gyro_pitch)),
+							std::bit_cast<int16_t>(le_to_native(common.gyro_yaw)),
+							std::bit_cast<int16_t>(le_to_native(common.gyro_roll))
 					},
 					{
-							static_cast<int16_t>(le_to_native(common.acceleration_x)),
-							static_cast<int16_t>(le_to_native(common.acceleration_y)),
-							static_cast<int16_t>(le_to_native(common.acceleration_z))
+							std::bit_cast<int16_t>(le_to_native(common.acceleration_x)),
+							std::bit_cast<int16_t>(le_to_native(common.acceleration_y)),
+							std::bit_cast<int16_t>(le_to_native(common.acceleration_z))
 					},
 					common.temperature,
 					extract_touch_point(common.touch_data_0),
@@ -131,5 +133,84 @@ namespace dual_sense
 						static_cast<bool>(common.microphone)
 					}
 			};
+	}
+
+	const Calibration& Gamepad::get_calibration_data() const
+	{
+		using namespace detail;
+		if(!calibration_data_loaded_)
+		{
+			uint8_t report_raw[37];
+			report_raw[0] = CALIBRATION_REPORT_ID;
+
+			hid_get_feature_report(device_, report_raw, sizeof(report_raw));
+
+			const auto data_raw = reinterpret_cast<detail::CalibrationReport*>(report_raw);
+
+			auto& gyro_calibration = calibration_data_.gyroscope;
+			auto& accel_calibration = calibration_data_.accelerometer;
+
+			gyro_calibration.pitch_offset = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_pitch_bias));
+			gyro_calibration.yaw_offset = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_yaw_bias));
+			gyro_calibration.roll_offset = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_roll_bias));
+
+			{
+				const auto gyro_speed_plus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_speed_plus));
+				const auto gyro_speed_minus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_speed_minus));
+
+				const auto gyro_speed = gyro_speed_plus + gyro_speed_minus;
+
+				gyro_calibration.factor_numerator = gyro_speed * Calibration::GYROSCOPE_RESOLUTION;
+			}
+			{
+				const auto gyro_pitch_plus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_pitch_plus));
+				const auto gyro_pitch_minus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_pitch_minus));
+
+				gyro_calibration.pitch_factor_denominator = gyro_pitch_plus - gyro_pitch_minus;
+			}
+			{
+				const auto gyro_yaw_plus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_yaw_plus));
+				const auto gyro_yaw_minus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_yaw_minus));
+
+				gyro_calibration.yaw_factor_denominator = gyro_yaw_plus - gyro_yaw_minus;
+			}
+			{
+				const auto gyro_roll_plus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_roll_plus));
+				const auto gyro_roll_minus = std::bit_cast<int16_t>(le_to_native(data_raw->gyro_roll_minus));
+
+				gyro_calibration.roll_factor_denominator = gyro_roll_plus - gyro_roll_minus;
+			}
+
+			accel_calibration.factor_numerator = 2 * Calibration::ACCELEROMETER_RESOLUTION;
+			{
+				const auto accel_x_plus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_x_plus));
+				const auto accel_x_minus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_x_minus));
+
+				const auto accel_range = accel_x_plus - accel_x_minus;
+
+				accel_calibration.x_offset = accel_x_plus - accel_range/2;
+				accel_calibration.x_factor_denominator = accel_range;
+			}
+			{
+				const auto accel_y_plus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_y_plus));
+				const auto accel_y_minus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_y_minus));
+
+				const auto accel_range = accel_y_plus - accel_y_minus;
+
+				accel_calibration.y_offset = accel_y_plus - accel_range/2;
+				accel_calibration.y_factor_denominator = accel_range;
+			}
+			{
+				const auto accel_z_plus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_z_plus));
+				const auto accel_z_minus = std::bit_cast<int16_t>(le_to_native(data_raw->accel_z_minus));
+
+				const auto accel_range = accel_z_plus - accel_z_minus;
+
+				accel_calibration.z_offset = accel_z_plus - accel_range/2;
+				accel_calibration.z_factor_denominator = accel_range;
+			}
+		}
+
+		return calibration_data_;
 	}
 }

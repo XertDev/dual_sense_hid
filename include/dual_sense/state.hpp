@@ -6,7 +6,6 @@
 
 namespace dual_sense
 {
-
 	/**
 	 * @brief State of analogs, buttons, etc. of gamepad
 	 */

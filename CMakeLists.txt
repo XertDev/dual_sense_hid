@@ -41,6 +41,7 @@ else()
         target_compile_options(
                 warnings_target
                 INTERFACE
+                -Waddress-of-packed-member
                 -Wmisleading-indentation
                 -Wduplicated-cond
                 -Wduplicated-branches
@@ -97,6 +98,7 @@ target_sources(
         include/dual_sense/gamepad.hpp
         include/dual_sense/device_info.hpp
         include/dual_sense/state.hpp
+        include/dual_sense/calibration.hpp
         include/dual_sense/detail/report.hpp
         include/dual_sense/detail/helper.hpp
 

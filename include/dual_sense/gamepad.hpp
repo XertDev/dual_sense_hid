@@ -7,6 +7,7 @@
 #include "device_info.hpp"
 #include "state.hpp"
 #include "enums.hpp"
+#include "calibration.hpp"
 
 
 struct hid_device_;
@@ -44,9 +45,14 @@ namespace dual_sense
 		 * @return A state of gamepad associated with current object
 		 */
 		[[nodiscard]] State poll() const;
+
+		[[nodiscard]] const Calibration& get_calibration_data() const;
 	private:
 		hid_device* device_;
 		ConnectionType connection_type_;
+
+		mutable bool calibration_data_loaded_ = false;
+		mutable Calibration calibration_data_;
 	};
 }
 
