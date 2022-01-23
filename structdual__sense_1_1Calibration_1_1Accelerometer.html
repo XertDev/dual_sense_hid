@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>dual_sense::Gamepad class | Dual sense</title>
+  <title>dual_sense::Calibration::Accelerometer struct | Dual sense</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -44,76 +44,115 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespacedual__sense.html">dual_sense</a>::<wbr/></span>Gamepad <span class="m-thin">class</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense/gamepad.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespacedual__sense.html">dual_sense</a>::<wbr/></span><span class="m-breadcrumb"><a href="structdual__sense_1_1Calibration.html">Calibration</a>::<wbr/></span>Accelerometer <span class="m-thin">struct</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="calibration_8hpp.html">&lt;dual_sense/calibration.hpp&gt;</a></div>
         </h1>
-        <p><a href="classdual__sense_1_1Gamepad.html" class="m-doc">Gamepad</a> handle used to poll state from device.</p>
+        <p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> data for accelerometer.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
             <li>
               Reference
               <ul>
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                <li><a href="#pub-methods">Public functions</a></li>
+                <li><a href="#pub-attribs">Public variables</a></li>
+                <li><a href="#x-axis-calibration-data">X axis calibration data</a></li>
+                <li><a href="#y-axis-calibration-data">Y axis calibration data</a></li>
+                <li><a href="#z-axis-calibration-data">Z axis calibration data</a></li>
               </ul>
             </li>
           </ul>
         </nav>
-        <section id="typeless-methods">
-          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+        <section id="pub-attribs">
+          <h2><a href="#pub-attribs">Public variables</a></h2>
           <dl class="m-doc">
             <dt>
-              <span class="m-doc-wrap-bumper"><a href="#af7648c0975438ba66cac473adce77577" class="m-doc">Gamepad</a>(</span><span class="m-doc-wrap">const <a href="structdual__sense_1_1DeviceInfo.html" class="m-doc">DeviceInfo</a>&amp; device_info) <span class="m-label m-flat m-info">explicit</span> </span>
+              int32_t <a href="#ae42da5caad37c996400aa41f48773398" class="m-doc">factor_numerator</a>
             </dt>
-            <dd>Constructor.</dd>
+            <dd></dd>
           </dl>
         </section>
-        <section id="pub-methods">
-          <h2><a href="#pub-methods">Public functions</a></h2>
+        <section id="x-axis-calibration-data">
+          <h2><a href="#x-axis-calibration-data">X axis calibration data</a></h2>
           <dl class="m-doc">
             <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#abeed244614ba99cc77a709f5e8a2b934" class="m-doc">poll</a>(</span><span class="m-doc-wrap">) const -&gt; <a href="structdual__sense_1_1State.html" class="m-doc">State</a></span>
+              int32_t <a href="#a7b3dde25bbbf1d0279918dc10e7abf2f" class="m-doc">x_factor_denominator</a>
             </dt>
-            <dd>Poll state of gamepad from report queue.</dd>
-            <dt id="ac2c01b4385c3c7d2a6fb9c0c5990c386">
-              <span class="m-doc-wrap-bumper">auto <a href="#ac2c01b4385c3c7d2a6fb9c0c5990c386" class="m-doc-self">get_calibration_data</a>(</span><span class="m-doc-wrap">) const -&gt; const <a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a>&amp;</span>
+            <dd></dd>
+            <dt>
+              int32_t <a href="#a90a5d9824268f4236dec3fb7a1cf7a60" class="m-doc">x_offset</a>
             </dt>
-            <dd><span></span></dd>
+            <dd></dd>
+          </dl>
+        </section>
+        <section id="y-axis-calibration-data">
+          <h2><a href="#y-axis-calibration-data">Y axis calibration data</a></h2>
+          <dl class="m-doc">
+            <dt>
+              int32_t <a href="#a00b08a02b11a41721787b11b1011368a" class="m-doc">y_factor_denominator</a>
+            </dt>
+            <dd></dd>
+            <dt>
+              int32_t <a href="#a323dbe4bd6f0bec9baadcb0bf478a5fa" class="m-doc">y_offset</a>
+            </dt>
+            <dd></dd>
+          </dl>
+        </section>
+        <section id="z-axis-calibration-data">
+          <h2><a href="#z-axis-calibration-data">Z axis calibration data</a></h2>
+          <dl class="m-doc">
+            <dt>
+              int32_t <a href="#a916ee0c5ac9cc791eea01e2a9a4c99fb" class="m-doc">z_factor_denominator</a>
+            </dt>
+            <dd></dd>
+            <dt>
+              int32_t <a href="#a445f38f6b186ad17c487078b66a46a4b" class="m-doc">z_offset</a>
+            </dt>
+            <dd></dd>
           </dl>
         </section>
         <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="af7648c0975438ba66cac473adce77577"><div>
+          <h2>Variable documentation</h2>
+          <section class="m-doc-details" id="ae42da5caad37c996400aa41f48773398"><div>
             <h3>
-              <span class="m-doc-wrap-bumper"> dual_sense::<wbr />Gamepad::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af7648c0975438ba66cac473adce77577" class="m-doc-self">Gamepad</a>(</span><span class="m-doc-wrap">const <a href="structdual__sense_1_1DeviceInfo.html" class="m-doc">DeviceInfo</a>&amp; device_info) <span class="m-label m-info">explicit</span> </span></span>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#ae42da5caad37c996400aa41f48773398" class="m-doc-self">factor_numerator</a>
             </h3>
-            <p>Constructor.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <thead>
-                <tr><th colspan="2">Parameters</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="width: 1%">device_info</td>
-                  <td>Device info to create gamepad instance for</td>
-                </tr>
-              </tbody>
-            </table>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> factor numerator</p>
           </div></section>
-          <section class="m-doc-details" id="abeed244614ba99cc77a709f5e8a2b934"><div>
+          <section class="m-doc-details" id="a7b3dde25bbbf1d0279918dc10e7abf2f"><div>
             <h3>
-              <span class="m-doc-wrap-bumper"><a href="structdual__sense_1_1State.html" class="m-doc">State</a> dual_sense::<wbr />Gamepad::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abeed244614ba99cc77a709f5e8a2b934" class="m-doc-self">poll</a>(</span><span class="m-doc-wrap">) const</span></span>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a7b3dde25bbbf1d0279918dc10e7abf2f" class="m-doc-self">x_factor_denominator</a>
             </h3>
-            <p>Poll state of gamepad from report queue.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <tfoot>
-                <tr>
-                  <th style="width: 1%">Returns</th>
-                  <td>A state of gamepad associated with current object</td>
-                </tr>
-              </tfoot>
-            </table>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> factor denominator</p>
+          </div></section>
+          <section class="m-doc-details" id="a90a5d9824268f4236dec3fb7a1cf7a60"><div>
+            <h3>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a90a5d9824268f4236dec3fb7a1cf7a60" class="m-doc-self">x_offset</a>
+            </h3>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> offset</p>
+          </div></section>
+          <section class="m-doc-details" id="a00b08a02b11a41721787b11b1011368a"><div>
+            <h3>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a00b08a02b11a41721787b11b1011368a" class="m-doc-self">y_factor_denominator</a>
+            </h3>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> factor denominator</p>
+          </div></section>
+          <section class="m-doc-details" id="a323dbe4bd6f0bec9baadcb0bf478a5fa"><div>
+            <h3>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a323dbe4bd6f0bec9baadcb0bf478a5fa" class="m-doc-self">y_offset</a>
+            </h3>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> offset</p>
+          </div></section>
+          <section class="m-doc-details" id="a916ee0c5ac9cc791eea01e2a9a4c99fb"><div>
+            <h3>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a916ee0c5ac9cc791eea01e2a9a4c99fb" class="m-doc-self">z_factor_denominator</a>
+            </h3>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> factor denominator</p>
+          </div></section>
+          <section class="m-doc-details" id="a445f38f6b186ad17c487078b66a46a4b"><div>
+            <h3>
+              int32_t dual_sense::<wbr />Calibration::<wbr />Accelerometer::<wbr /><a href="#a445f38f6b186ad17c487078b66a46a4b" class="m-doc-self">z_offset</a>
+            </h3>
+<p><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> offset</p>
           </div></section>
         </section>
       </div>
