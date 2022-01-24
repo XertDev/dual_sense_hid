@@ -37,16 +37,22 @@ namespace dual_sense
 		/**
 		 * @brief Constructor
 		 * @param device_info	Device info to create gamepad instance for
+		 * @param fetch_calibration_data Prefetch calibration data while initializing (default: true)
 		 */
-		explicit Gamepad(const DeviceInfo& device_info);
+		explicit Gamepad(const DeviceInfo& device_info, bool fetch_calibration_data=true);
 
 		/**
 		 * @brief Poll state of gamepad from report queue
+		 * @param use_calibration_data Apply accelerometer & gyroscope calibration data to readings
 		 * @return A state of gamepad associated with current object
 		 */
-		[[nodiscard]] State poll() const;
+		[[nodiscard]] State poll(bool use_calibration_data=true) const;
 
-		[[nodiscard]] const Calibration& get_calibration_data() const;
+		/**
+		 * @brief Get calibration data (cached)
+		 * @return Calibration data from gamepad
+		 */
+		const Calibration& get_calibration_data() const;
 	private:
 		hid_device* device_;
 		ConnectionType connection_type_;

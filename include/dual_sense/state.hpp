@@ -115,9 +115,9 @@ namespace dual_sense
 		 */
 		struct Gyro
 		{
-			int16_t pitch; /*!< Pitch velocity */
-			int16_t yaw; /*!< Yaw velocity */
-			int16_t roll; /*!< Roll velocity */
+			int32_t pitch; /*!< Pitch velocity */
+			int32_t yaw; /*!< Yaw velocity */
+			int32_t roll; /*!< Roll velocity */
 		};
 
 		/**
@@ -125,9 +125,9 @@ namespace dual_sense
 		 */
 		struct Acceleration
 		{
-			int16_t x; /*!< X axis acceleration */
-			int16_t y; /*!< Y axis acceleration */
-			int16_t z; /*!< Z axis acceleration */
+			int32_t x; /*!< X axis acceleration */
+			int32_t y; /*!< Y axis acceleration */
+			int32_t z; /*!< Z axis acceleration */
 		};
 
 		/**

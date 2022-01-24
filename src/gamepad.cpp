@@ -27,6 +27,13 @@ namespace dual_sense
 							static_cast<uint8_t>(touch_data[0] & 0x7f)
 					};
 		}
+
+		template<typename T>
+		requires std::integral<T>
+		inline T mult_frac(T value, T numerator, T denominator)
+		{
+			return (value / denominator) * numerator + ((value % denominator) * numerator) / denominator;
+		}
 	}
 
 	std::vector<DeviceInfo> enumerate()
@@ -55,7 +62,7 @@ namespace dual_sense
 		return devices;
 	}
 
-	Gamepad::Gamepad(const DeviceInfo &device_info) : connection_type_(device_info.connection_type)
+	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data) : connection_type_(device_info.connection_type)
 	{
 		const auto &path = device_info.path;
 		device_ = hid_open_path(path.c_str());
@@ -63,9 +70,14 @@ namespace dual_sense
 		{
 			throw std::runtime_error("Failed to open device path");
 		}
+
+		if(fetch_calibration_data)
+		{
+			get_calibration_data();
+		}
 	}
 
-	State Gamepad::poll() const
+	State Gamepad::poll(bool use_calibration_data) const
 	{
 		using namespace detail;
 
@@ -77,6 +89,34 @@ namespace dual_sense
 		const auto &common =
 				connection_type_ == ConnectionType::USB ? reinterpret_cast<detail::ReportUSB *>(report)->common
 				                                        : reinterpret_cast<detail::ReportBT *>(report)->common;
+
+		auto gyro_pitch = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.gyro_pitch)));
+		auto gyro_yaw = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.gyro_yaw)));
+		auto gyro_roll = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.gyro_roll)));
+
+		auto accel_x = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.acceleration_x)));
+		auto accel_y = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.acceleration_y)));
+		auto accel_z = static_cast<int32_t>(std::bit_cast<int16_t>(le_to_native(common.acceleration_z)));
+
+		if(use_calibration_data)
+		{
+			if(!calibration_data_loaded_)
+			{
+				get_calibration_data();
+			}
+
+			const auto& gyro_calib = calibration_data_.gyroscope;
+
+			gyro_pitch = mult_frac(gyro_pitch - gyro_calib.pitch_offset, gyro_calib.factor_numerator, gyro_calib.pitch_factor_denominator);
+			gyro_yaw = mult_frac(gyro_yaw - gyro_calib.yaw_offset, gyro_calib.factor_numerator, gyro_calib.yaw_factor_denominator);
+			gyro_roll = mult_frac(gyro_roll - gyro_calib.roll_offset, gyro_calib.factor_numerator, gyro_calib.roll_factor_denominator);
+
+			const auto& accel_calib = calibration_data_.accelerometer;
+
+			accel_x = mult_frac(accel_x - accel_calib.x_offset, accel_calib.factor_numerator, accel_calib.x_factor_denominator);
+			accel_y = mult_frac(accel_y - accel_calib.y_offset, accel_calib.factor_numerator, accel_calib.y_factor_denominator);
+			accel_z = mult_frac(accel_z - accel_calib.z_offset, accel_calib.factor_numerator, accel_calib.z_factor_denominator);
+		}
 
 		return
 			{
@@ -111,14 +151,14 @@ namespace dual_sense
 							static_cast<bool>(common.buttons.mute)
 					},
 					{
-							std::bit_cast<int16_t>(le_to_native(common.gyro_pitch)),
-							std::bit_cast<int16_t>(le_to_native(common.gyro_yaw)),
-							std::bit_cast<int16_t>(le_to_native(common.gyro_roll))
+							gyro_pitch,
+							gyro_yaw,
+							gyro_roll
 					},
 					{
-							std::bit_cast<int16_t>(le_to_native(common.acceleration_x)),
-							std::bit_cast<int16_t>(le_to_native(common.acceleration_y)),
-							std::bit_cast<int16_t>(le_to_native(common.acceleration_z))
+							accel_x,
+							accel_y,
+							accel_z
 					},
 					common.temperature,
 					extract_touch_point(common.touch_data_0),
