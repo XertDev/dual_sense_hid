@@ -6,7 +6,8 @@
 #include <hidapi.h>
 
 #include "dual_sense/detail/helper.hpp"
-#include "dual_sense/detail/report.hpp"
+#include "dual_sense/detail/report_input.hpp"
+#include "dual_sense/detail/report_output.hpp"
 
 static constexpr uint8_t CALIBRATION_REPORT_ID = 0x05;
 
@@ -62,7 +63,38 @@ namespace dual_sense
 		return devices;
 	}
 
-	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data) : connection_type_(device_info.connection_type)
+	void Gamepad::Lights::set_player_indicator(Gamepad::Lights::PlayerIndicator indicator)
+	{
+		changed_ |= indicator != player_indicator_;
+
+		player_indicator_ = indicator;
+	}
+
+	void Gamepad::Lights::set_touchpad_light_color(uint8_t red, uint8_t green, uint8_t blue)
+	{
+		changed_ |= (red != touchpad_light_red_) || (green != touchpad_light_green_) || (blue != touchpad_light_blue_);
+
+		touchpad_light_red_ = red;
+		touchpad_light_green_ = green;
+		touchpad_light_blue_ = blue;
+	}
+
+	void Gamepad::Lights::set_player_indicator_brightness(Gamepad::Lights::PlayerIndicatorBrightness brightness)
+	{
+		changed_ |= player_indicator_brightness_ != brightness;
+
+		player_indicator_brightness_ = brightness;
+	}
+
+	void Gamepad::Lights::set_mute_light_mode(MuteLightMode mute_light_mode)
+	{
+		changed_ |= mute_light_mode_ == mute_light_mode;
+
+		mute_light_mode_ = mute_light_mode;
+	}
+
+	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data, bool auto_push_settings)
+		:connection_type_(device_info.connection_type), auto_push_settings_(auto_push_settings)
 	{
 		const auto &path = device_info.path;
 		device_ = hid_open_path(path.c_str());
@@ -75,6 +107,8 @@ namespace dual_sense
 		{
 			get_calibration_data();
 		}
+
+		take_lights_control();
 	}
 
 	State Gamepad::poll(bool use_calibration_data) const
@@ -130,12 +164,12 @@ namespace dual_sense
 						common.right_trigger,
 						common.right_trigger_feedback,
 					},
-					static_cast<State::DPadDirection>(common.dpad),
+					static_cast<State::DPadDirection>(common.buttons.dpad),
 					{
-						static_cast<bool>(common.triangle),
-						static_cast<bool>(common.circle),
-						static_cast<bool>(common.cross),
-						static_cast<bool>(common.square)
+						static_cast<bool>(common.buttons.triangle),
+						static_cast<bool>(common.buttons.circle),
+						static_cast<bool>(common.buttons.cross),
+						static_cast<bool>(common.buttons.square)
 					},
 					{
 							static_cast<bool>(common.buttons.l1),
@@ -253,4 +287,98 @@ namespace dual_sense
 
 		return calibration_data_;
 	}
+	
+	void Gamepad::push_state(bool full_update)
+	{
+		detail::SetStateReportCommon common_report{};
+
+		if(full_update || lights_.changed_)
+		{
+			common_report.enable_led_color_section = true;
+			common_report.enable_player_indicators_section = true;
+			common_report.enable_light_brightness_section = true;
+			common_report.enable_color_light_fade_section = true;
+			common_report.enable_mute_light_section = true;
+
+			common_report.power_save_mute.mute_light_mode = static_cast<uint8_t>(lights_.mute_light_mode_);
+
+			common_report.player_led.brightness = static_cast<uint8_t>(lights_.player_indicator_brightness_);
+
+			common_report.player_led.led_1 = false;
+			common_report.player_led.led_2 = false;
+			common_report.player_led.led_3 = false;
+			common_report.player_led.led_4 = false;
+			common_report.player_led.led_5 = false;
+
+			if (
+					lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_ONE
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_THREE
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_FIVE
+				)
+			{
+				common_report.player_led.led_3 = true;
+			}
+
+			if (
+					lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_TWO
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_FOUR
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_FIVE
+			)
+			{
+				common_report.player_led.led_2 = true;
+				common_report.player_led.led_4 = true;
+			}
+
+			if (
+					lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_THREE
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_FOUR
+					|| lights_.player_indicator_ == Lights::PlayerIndicator::PLAYER_FIVE
+			)
+			{
+				common_report.player_led.led_1 = true;
+				common_report.player_led.led_5 = true;
+			}
+
+			common_report.touchpad_led_color.red_led = lights_.touchpad_light_red_;
+			common_report.touchpad_led_color.green_led = lights_.touchpad_light_green_;
+			common_report.touchpad_led_color.blue_led = lights_.touchpad_light_blue_;
+		}
+
+
+		if (connection_type_ == ConnectionType::USB)
+		{
+			detail::SetStateReportUSB report{};
+			report.report_id = 0x02;
+			report.common = common_report;
+
+			hid_write(device_, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportUSB));
+		}
+	}
+
+	Gamepad::Lights& Gamepad::lights()
+	{
+		return lights_;
+	}
+
+	void Gamepad::take_lights_control()
+	{
+		detail::SetStateReportCommon common_report{};
+
+		if(!lights_reset_)
+		{
+			common_report.reset_lights = true;
+			lights_reset_ = true;
+		}
+
+		if (connection_type_ == ConnectionType::USB)
+		{
+			detail::SetStateReportUSB report{};
+			report.report_id = 0x02;
+			report.common = common_report;
+
+			hid_write(device_, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportUSB));
+		}
+	}
+
+
 }

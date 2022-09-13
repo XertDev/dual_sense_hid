@@ -1,5 +1,5 @@
-#ifndef DUAL_SENSE_REPORT_HPP
-#define DUAL_SENSE_REPORT_HPP
+#ifndef DUAL_SENSE_REPORT_INPUT_HPP
+#define DUAL_SENSE_REPORT_INPUT_HPP
 
 #include <cstdint>
 
@@ -9,6 +9,13 @@ namespace dual_sense::detail
 
 	struct ReportButtons
 	{
+		uint8_t dpad: 4;
+
+		uint8_t square: 1;
+		uint8_t cross: 1;
+		uint8_t circle: 1;
+		uint8_t triangle: 1;
+
 		uint8_t l1: 1;
 		uint8_t r1: 1;
 
@@ -40,13 +47,6 @@ namespace dual_sense::detail
 		uint8_t right_trigger;
 
 		uint8_t gap_0; // 1 for BT
-
-		uint8_t dpad: 4;
-
-		uint8_t square: 1;
-		uint8_t cross: 1;
-		uint8_t circle: 1;
-		uint8_t triangle: 1;
 
 		ReportButtons buttons;
 
@@ -155,6 +155,7 @@ namespace dual_sense::detail
 
 		uint8_t gap[2];
 	};
+
 #pragma pack(pop)
 
 	static_assert(sizeof(ReportUSB) == 64);
@@ -164,4 +165,4 @@ namespace dual_sense::detail
 	static_assert(sizeof(CalibrationReport) == 37);
 }
 
-#endif //DUAL_SENSE_REPORT_HPP
+#endif //DUAL_SENSE_REPORT_INPUT_HPP

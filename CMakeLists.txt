@@ -99,7 +99,8 @@ target_sources(
         include/dual_sense/device_info.hpp
         include/dual_sense/state.hpp
         include/dual_sense/calibration.hpp
-        include/dual_sense/detail/report.hpp
+        include/dual_sense/detail/report_input.hpp
+        include/dual_sense/detail/report_output.hpp
         include/dual_sense/detail/helper.hpp
 
         src/gamepad.cpp
@@ -120,11 +121,10 @@ if(ENABLE_DOCS)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile.out)
 
     configure_file(docs/Doxyfile ${DOXYGEN_OUT})
-
     include(FetchContent)
     FetchContent_Declare(
             mcss
-            GIT_REPOSITORY git://github.com/mosra/m.css
+            GIT_REPOSITORY https://github.com/mosra/m.css.git
     )
     FetchContent_MakeAvailable(mcss)
 
