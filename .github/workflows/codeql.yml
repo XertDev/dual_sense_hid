@@ -1,0 +1,87 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: "10 1 * * 4"
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ cpp ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes cmake libhidapi-dev libssl-dev bison flex
+
+      - name: Configure
+        run: |
+          mkdir -p _lgtm_build
+          cd _lgtm_build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+
+      - name: After Prepare
+        run: |
+          export LC_ALL=C.UTF-8 && echo "LC_ALL=$LC_ALL" >> $GITHUB_ENV
+          export CC=clang && echo "CC=$CC" >> $GITHUB_ENV
+          export CXX=clang++ && echo "CXX=$CXX" >> $GITHUB_ENV
+          git clone https://gcc.gnu.org/git/gcc.git --branch=releases/gcc-11 --single-branch --depth=1 --quiet
+          cd gcc
+          ./contrib/download_prerequisites >/dev/null 2>&1
+          cd ..
+          mkdir gcc-build
+          cd gcc-build
+          ../gcc/configure CC=clang CXX=clang++ CFLAGS='-march=native -w' CXXFLAGS='-march=native -w' --prefix=$HOME/.local --enable-languages=c,c++ --enable-checking=release --disable-bootstrap --with-gcc-major-version-only --with-default-libstdcxx-abi=new --enable-libstdcxx-time=yes --enable-linker-build-id --enable-gnu-unique-object --enable-plugin --disable-werror --enable-lto --with-cpu=native --with-arch=native --with-tune=native --disable-multilib --disable-libada --disable-libsanitizer --enable-silent-rules --quiet >/dev/null 2>&1
+          make --jobs=$(nproc) --quiet >/dev/null 2>&1
+          make install --quiet >/dev/null 2>&1
+          export PATH=$HOME/.local/bin:$PATH && echo "PATH=$PATH" >> $GITHUB_ENV
+          export LD_LIBRARY_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH && echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
+          export LIBRARY_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LIBRARY_PATH && echo "LIBRARY_PATH=$LIBRARY_PATH" >> $GITHUB_ENV
+          export LD_RUN_PATH=$HOME/.local/lib64:$HOME/.local/lib:$LD_RUN_PATH && echo "LD_RUN_PATH=$LD_RUN_PATH" >> $GITHUB_ENV
+          export CPLUS_INCLUDE_PATH=$HOME/.local/include/c++/$(g++ -dumpspecs | grep --after-context=1 '*version:' | tail --lines=1):$CPLUS_INCLUDE_PATH && echo "CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH" >> $GITHUB_ENV
+          export CPATH=$HOME/.local/include:$CPATH && echo "CPATH=$CPATH" >> $GITHUB_ENV
+          ln --symbolic $HOME/.local/bin/gcc $HOME/.local/bin/cc
+          export CC=$HOME/.local/bin/gcc && echo "CC=$CC" >> $GITHUB_ENV
+          export CXX=$HOME/.local/bin/g++ && echo "CXX=$CXX" >> $GITHUB_ENV
+          wget -O cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1.tar.gz
+          tar zxf cmake.tar.gz
+          cd cmake-*/
+          mkdir build
+          cd build
+          cmake -DCMAKE_INSTALL_PREFIX:PATH=~/.local/ -DCMAKE_BUILD_TYPE=Release ..
+          make install
+          export PATH=~/.local/bin:$PATH && echo "PATH=$PATH" >> $GITHUB_ENV
+          cmake --version
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          queries: +security-and-quality
+
+      - name: Build cpp
+        run: |
+          cd _lgtm_build
+          make -j 2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{ matrix.language }}"
