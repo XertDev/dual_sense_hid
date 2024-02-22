@@ -1,13 +1,12 @@
-#include "dual_sense/gamepad.hpp"
+#include "dual_sense_hid/gamepad.hpp"
 
 #include <locale>
-#include <cstring>
 
 #include <hidapi.h>
 
-#include "dual_sense/detail/helper.hpp"
-#include "dual_sense/detail/report_input.hpp"
-#include "dual_sense/detail/report_output.hpp"
+#include "dual_sense_hid/detail/helper.hpp"
+#include "dual_sense_hid/detail/report_input.hpp"
+#include "dual_sense_hid/detail/report_output.hpp"
 
 static constexpr uint8_t CALIBRATION_REPORT_ID = 0x05;
 
