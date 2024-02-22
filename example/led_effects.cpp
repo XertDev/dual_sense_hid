@@ -4,7 +4,7 @@
 
 #include <tabulate/table.hpp>
 
-#include "dual_sense/gamepad.hpp"
+#include "dual_sense_hid/gamepad.hpp"
 
 
 using namespace tabulate;

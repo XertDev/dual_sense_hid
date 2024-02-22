@@ -77,3 +77,6 @@ CMakeLists.txt.user
 
 #cmake build dir
 cmake-build-*
+
+#nix result dir
+result

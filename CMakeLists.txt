@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.26)
 project(
-        dual_sense
+        dual_sense_hid
         VERSION 0.1
-        DESCRIPTION "Dual Sense Gamepad"
+        DESCRIPTION "Dual Sense Gamepad via HID api"
         LANGUAGES CXX
 )
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -61,7 +61,7 @@ if(!MSVC)
 
     if(ENABLE_COVERAGE)
         target_compile_options(options_target INTERFACE --coverage -O0 -g)
-        target_link_libraries(options_targer INTERFACE --coverage)
+        target_link_libraries(options_target INTERFACE --coverage)
     endif()
 endif()
 
@@ -69,22 +69,24 @@ endif()
 find_package(hidapi REQUIRED)
 
 # Library
-add_library(dual_sense)
+add_library(dual_sense_hid)
 
 target_include_directories(
-        dual_sense
+        dual_sense_hid
         PUBLIC
-        include
-)
-target_link_libraries(
-        dual_sense
-        PRIVATE
-        options_target
-        warnings_target
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+        $<INSTALL_INTERFACE:include/>
 )
 
 target_link_libraries(
-        dual_sense
+        dual_sense_hid
+        PRIVATE
+        $<BUILD_LOCAL_INTERFACE:options_target>
+        $<BUILD_LOCAL_INTERFACE:warnings_target>
+)
+
+target_link_libraries(
+        dual_sense_hid
         PRIVATE
         hidapi::hidapi
 )
@@ -92,18 +94,42 @@ target_link_libraries(
 # Sources
 
 target_sources(
-        dual_sense
+        dual_sense_hid
         PRIVATE
-        include/dual_sense/enums.hpp
-        include/dual_sense/gamepad.hpp
-        include/dual_sense/device_info.hpp
-        include/dual_sense/state.hpp
-        include/dual_sense/calibration.hpp
-        include/dual_sense/detail/report_input.hpp
-        include/dual_sense/detail/report_output.hpp
-        include/dual_sense/detail/helper.hpp
+        include/dual_sense_hid/enums.hpp
+        include/dual_sense_hid/gamepad.hpp
+        include/dual_sense_hid/device_info.hpp
+        include/dual_sense_hid/state.hpp
+        include/dual_sense_hid/calibration.hpp
+        include/dual_sense_hid/detail/report_input.hpp
+        include/dual_sense_hid/detail/report_output.hpp
+        include/dual_sense_hid/detail/helper.hpp
 
         src/gamepad.cpp
+)
+
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+install(TARGETS dual_sense_hid EXPORT ${PROJECT_NAME}Targets)
+install(DIRECTORY include/dual_sense_hid DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+configure_package_config_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/dual_sense_hidConfig.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+if(${CMAKE_VERSION} VERSION_GREATER 3.13)
+    write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" COMPATIBILITY SameMajorVersion ARCH_INDEPENDENT)
+else()
+    write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" COMPATIBILITY SameMajorVersion)
+endif()
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+install(
+        EXPORT ${PROJECT_NAME}Targets
+        NAMESPACE "${PROJECT_NAME}::"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 # Examples

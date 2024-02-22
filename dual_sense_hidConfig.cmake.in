@@ -1,0 +1,9 @@
+include(CMakeFindDependencyMacro)
+
+# Same syntax as find_package
+find_dependency(hidapi REQUIRED)
+
+# Any extra setup
+
+# Add the targets file
+include("${CMAKE_CURRENT_LIST_DIR}/dual_sense_hidTargets.cmake")
