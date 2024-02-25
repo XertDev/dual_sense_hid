@@ -32,10 +32,9 @@
 						};
 
 						meta = with pkgs.lib; {
-							description = "Table Maker for Modern C++ ";
 							license = licenses.mit;
 							homepage = "https://github.com/p-ranav/tabulate";
-							platforms = platforms.linux;
+							platforms = platforms.linux ++ platforms.darwin;
 						};
 					};
 
@@ -61,15 +60,20 @@
 					};
 
 					devShells.default = pkgs.mkShell {
-						LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-
 						inputsFrom = [ dual_sense_hid ];
 
 						packages = with pkgs; [
 							fmt
 							tabulate
 						];
-					};
+					}
+					// pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+						PATH_LOCALE = "${pkgs.darwin.locale}/share/locale";
+					}
+					// pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+						LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+					}
+;
 				};
 		};
 }
