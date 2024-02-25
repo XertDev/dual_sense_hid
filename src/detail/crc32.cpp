@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-namespace dual_sense::detail
+namespace dual_sense_hid::detail
 {
 	namespace
 	{

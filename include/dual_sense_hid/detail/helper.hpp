@@ -1,11 +1,11 @@
-#ifndef DUAL_SENSE_HELPER_HPP
-#define DUAL_SENSE_HELPER_HPP
+#ifndef DUAL_SENSE_HID_HELPER_HPP
+#define DUAL_SENSE_HID_HELPER_HPP
 
 #include <cstdint>
 #include <bit>
 
 
-namespace dual_sense::detail
+namespace dual_sense_hid::detail
 {
 #if defined(__cpp_lib_byteswap)
 	uint16_t dual_sense_bswap16(uint16_t val)
@@ -59,4 +59,4 @@ inline uint16_t le_to_native(uint16_t le)
 	}
 }
 
-#endif //DUAL_SENSE_HELPER_HPP
+#endif //DUAL_SENSE_HID_HELPER_HPP

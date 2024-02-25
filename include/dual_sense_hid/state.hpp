@@ -1,10 +1,10 @@
-#ifndef DUAL_SENSE_STATE_HPP
-#define DUAL_SENSE_STATE_HPP
+#ifndef DUAL_SENSE_HID_STATE_HPP
+#define DUAL_SENSE_HID_STATE_HPP
 
 #include <cstdint>
 
 
-namespace dual_sense
+namespace dual_sense_hid
 {
 	/**
 	 * @brief State of analogs, buttons, etc. of gamepad
@@ -194,4 +194,4 @@ namespace dual_sense
 	};
 }
 
-#endif //DUAL_SENSE_STATE_HPP
+#endif //DUAL_SENSE_HID_STATE_HPP

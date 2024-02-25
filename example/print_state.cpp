@@ -9,7 +9,7 @@
 
 
 using namespace tabulate;
-using namespace dual_sense;
+using namespace dual_sense_hid;
 using Row_t = Table::Row_t;
 
 namespace

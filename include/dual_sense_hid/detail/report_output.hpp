@@ -1,9 +1,9 @@
-#ifndef DUAL_SENSE_REPORT_OUTPUT_HPP
-#define DUAL_SENSE_REPORT_OUTPUT_HPP
+#ifndef DUAL_SENSE_HID_REPORT_OUTPUT_HPP
+#define DUAL_SENSE_HID_REPORT_OUTPUT_HPP
 
 #include <cstdint>
 
-	namespace dual_sense::detail
+	namespace dual_sense_hid::detail
 	{
 	#pragma pack(push, 1)
 
@@ -155,4 +155,4 @@
 		static_assert(sizeof(SetStateReportCommon) == 47);
 		static_assert(sizeof(SetStateReportUSB) == 48);
 	}
-#endif //DUAL_SENSE_REPORT_OUTPUT_HPP
+#endif //DUAL_SENSE_HID_REPORT_OUTPUT_HPP
