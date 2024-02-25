@@ -7,14 +7,21 @@
 
 namespace dual_sense::detail
 {
-#if defined(_MSC_VER)
-#define dual_sense_bswap16 _byteswap_ushort;
+#if defined(__cpp_lib_byteswap)
+	uint16_t dual_sense_bswap16(uint16_t val)
+	{
+		return std::byteswap(val);
+	}
+#elif defined(_MSC_VER)
+using dual_sense_bswap16 = _byteswap_ushort;
 #elif defined(__has_builtin)
 	#if __has_builtin(__builtin_bswap16)
-		#define dual_sense_bswap16 __builtin_bswap16
-		#endif
-#endif
-#if !defined(dual_sense_bswap16)
+		uint16_t dual_sense_bswap16(uint16_t val)
+		{
+			return __builtin_bswap16(val);
+		}
+	#endif
+#elif !defined(dual_sense_bswap16)
 	inline uint16_t dual_sense_bswap16(uint16_t val)
 	{
 		return  ((val << 8)  & 0xff00u) |
@@ -22,17 +29,17 @@ namespace dual_sense::detail
 	}
 #endif
 
-	inline uint16_t le_to_native(uint16_t le)
+inline uint16_t le_to_native(uint16_t le)
+{
+	if constexpr (std::endian::native == std::endian::little)
 	{
-		if constexpr (std::endian::native == std::endian::little)
-		{
-			return le;
-		}
-		else
-		{
-			return dual_sense_bswap16(le);
-		}
+		return le;
 	}
+	else
+	{
+		return dual_sense_bswap16(le);
+	}
+}
 
 	std::string wstring_to_string(const std::wstring &input)
 	{
