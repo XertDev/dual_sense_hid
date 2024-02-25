@@ -2,7 +2,7 @@
 #define DUAL_SENSE_HID_CRC32_HPP
 
 #include <cstdint>
-
+#include <cstddef>
 
 namespace dual_sense_hid::detail
 {
