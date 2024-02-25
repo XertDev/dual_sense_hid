@@ -1,12 +1,12 @@
-#ifndef DUAL_SENSE_DEVICE_INFO_HPP
-#define DUAL_SENSE_DEVICE_INFO_HPP
+#ifndef DUAL_SENSE_HID_DEVICE_INFO_HPP
+#define DUAL_SENSE_HID_DEVICE_INFO_HPP
 
 #include <string>
 
 #include "enums.hpp"
 
 
-namespace dual_sense
+namespace dual_sense_hid
 {
 	/**
 	 * @brief Enumerated info of connected gamepad
@@ -26,4 +26,4 @@ namespace dual_sense
 	};
 }
 
-#endif //DUAL_SENSE_DEVICE_INFO_HPP
+#endif //DUAL_SENSE_HID_DEVICE_INFO_HPP

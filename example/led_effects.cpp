@@ -8,7 +8,7 @@
 
 
 using namespace tabulate;
-using namespace dual_sense;
+using namespace dual_sense_hid;
 using namespace std::chrono_literals;
 using Row_t = Table::Row_t;
 
@@ -84,7 +84,7 @@ void gradient_touchpad_backlight_demo(Gamepad& gamepad)
 
 	std::cout << "Gradient from RED to BLUE - max light" << std::endl;
 
-	lights.set_player_indicator_brightness(dual_sense::Gamepad::Lights::PlayerIndicatorBrightness::MAX);
+	lights.set_player_indicator_brightness(dual_sense_hid::Gamepad::Lights::PlayerIndicatorBrightness::MAX);
 	gamepad.push_state();
 
 	std::apply(set_color, RED);
@@ -103,7 +103,7 @@ void gradient_touchpad_backlight_demo(Gamepad& gamepad)
 
 	std::cout << "Gradient from BLUE to GREEN - mid light" << std::endl;
 
-	lights.set_player_indicator_brightness(dual_sense::Gamepad::Lights::PlayerIndicatorBrightness::MEDIUM);
+	lights.set_player_indicator_brightness(dual_sense_hid::Gamepad::Lights::PlayerIndicatorBrightness::MEDIUM);
 
 	for (size_t i = 0; i < STEP_COUNT; ++i)
 	{
@@ -128,7 +128,7 @@ void player_indicator_demo(Gamepad& gamepad)
 	std::cout << "5..";
 	std::flush(std::cout);
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::PLAYER_FIVE);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_FIVE);
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(1s);
@@ -136,7 +136,7 @@ void player_indicator_demo(Gamepad& gamepad)
 	std::cout << "4..";
 	std::flush(std::cout);
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::PLAYER_FOUR);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_FOUR);
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(1s);
@@ -144,7 +144,7 @@ void player_indicator_demo(Gamepad& gamepad)
 	std::cout << "3..";
 	std::flush(std::cout);
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::PLAYER_THREE);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_THREE);
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(2s);
@@ -152,7 +152,7 @@ void player_indicator_demo(Gamepad& gamepad)
 	std::cout << "2..";
 	std::flush(std::cout);
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::PLAYER_TWO);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_TWO);
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(2s);
@@ -160,14 +160,14 @@ void player_indicator_demo(Gamepad& gamepad)
 	std::cout << "1..";
 	std::flush(std::cout);
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::PLAYER_ONE);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_ONE);
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(2s);
 
 	std::cout << "0" << std::endl;
 
-	gamepad.lights().set_player_indicator(dual_sense::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
 	gamepad.push_state();
 }
 
@@ -180,7 +180,7 @@ void mute_mic_indicator_demo(Gamepad& gamepad)
 
 		std::cout << "Muted" << std::endl;
 
-		gamepad.lights().set_mute_light_mode(dual_sense::Gamepad::Lights::MuteLightMode::ON);
+		gamepad.lights().set_mute_light_mode(dual_sense_hid::Gamepad::Lights::MuteLightMode::ON);
 		gamepad.push_state();
 	}
 
@@ -189,7 +189,7 @@ void mute_mic_indicator_demo(Gamepad& gamepad)
 
 		std::cout << "Unmuted" << std::endl;
 
-		gamepad.lights().set_mute_light_mode(dual_sense::Gamepad::Lights::MuteLightMode::OFF);
+		gamepad.lights().set_mute_light_mode(dual_sense_hid::Gamepad::Lights::MuteLightMode::OFF);
 		gamepad.push_state();
 	}
 
@@ -198,12 +198,12 @@ void mute_mic_indicator_demo(Gamepad& gamepad)
 
 		std::cout << "Breathing" << std::endl;
 
-		gamepad.lights().set_mute_light_mode(dual_sense::Gamepad::Lights::MuteLightMode::BREATHING);
+		gamepad.lights().set_mute_light_mode(dual_sense_hid::Gamepad::Lights::MuteLightMode::BREATHING);
 		gamepad.push_state();
 
 		std::this_thread::sleep_for(4s);
 	}
-	gamepad.lights().set_mute_light_mode(dual_sense::Gamepad::Lights::MuteLightMode::OFF);
+	gamepad.lights().set_mute_light_mode(dual_sense_hid::Gamepad::Lights::MuteLightMode::OFF);
 }
 
 int main(int argc, char **argv)

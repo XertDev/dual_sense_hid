@@ -1,10 +1,10 @@
-#ifndef DUAL_SENSE_ENUMS_HPP
-#define DUAL_SENSE_ENUMS_HPP
+#ifndef DUAL_SENSE_HID_ENUMS_HPP
+#define DUAL_SENSE_HID_ENUMS_HPP
 
 #include <cstdint>
 
 
-namespace dual_sense
+namespace dual_sense_hid
 {
 	/**
  	 * @enum ConnectionType
@@ -17,4 +17,4 @@ namespace dual_sense
 	};
 }
 
-#endif //DUAL_SENSE_ENUMS_HPP
+#endif //DUAL_SENSE_HID_ENUMS_HPP

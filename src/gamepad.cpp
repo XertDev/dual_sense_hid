@@ -11,11 +11,11 @@
 static constexpr uint8_t CALIBRATION_REPORT_ID = 0x05;
 
 
-namespace dual_sense
+namespace dual_sense_hid
 {
 	namespace
 	{
-		inline dual_sense::State::TouchPoint extract_touch_point(const uint8_t touch_data[4])
+		inline State::TouchPoint extract_touch_point(const uint8_t touch_data[4])
 		{
 			const auto x = static_cast<uint16_t>(((touch_data[2] & 0x0f) << 8) | touch_data[1]);
 			const auto y = static_cast<uint16_t>((touch_data[3] << 4) | (touch_data[2] & 0xf0 >> 4));

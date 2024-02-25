@@ -1,11 +1,11 @@
-#ifndef DUAL_SENSE_CALIBRATION_HPP
-#define DUAL_SENSE_CALIBRATION_HPP
+#ifndef DUAL_SENSE_HID_CALIBRATION_HPP
+#define DUAL_SENSE_HID_CALIBRATION_HPP
 
 #include <cstdint>
 #include <string>
 
 
-namespace dual_sense
+namespace dual_sense_hid
 {
 	/**
 	 * @brief Calibration data for accelerometer & gyroscope
@@ -106,4 +106,4 @@ namespace dual_sense
 
 
 
-#endif //DUAL_SENSE_CALIBRATION_HPP
+#endif //DUAL_SENSE_HID_CALIBRATION_HPP

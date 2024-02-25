@@ -1,9 +1,9 @@
-#ifndef DUAL_SENSE_REPORT_INPUT_HPP
-#define DUAL_SENSE_REPORT_INPUT_HPP
+#ifndef DUAL_SENSE_HID_REPORT_INPUT_HPP
+#define DUAL_SENSE_HID_REPORT_INPUT_HPP
 
 #include <cstdint>
 
-namespace dual_sense::detail
+namespace dual_sense_hid::detail
 {
 #pragma pack(push, 1)
 
@@ -165,4 +165,4 @@ namespace dual_sense::detail
 	static_assert(sizeof(CalibrationReport) == 37);
 }
 
-#endif //DUAL_SENSE_REPORT_INPUT_HPP
+#endif //DUAL_SENSE_HID_REPORT_INPUT_HPP

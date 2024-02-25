@@ -1,5 +1,5 @@
-#ifndef DUAL_SENSE_GAMEPAD_HPP
-#define DUAL_SENSE_GAMEPAD_HPP
+#ifndef DUAL_SENSE_HID_GAMEPAD_HPP
+#define DUAL_SENSE_HID_GAMEPAD_HPP
 
 #include <vector>
 #include <string>
@@ -17,7 +17,7 @@ typedef struct hid_device_ hid_device;
  * @namespace dual_sense
  * @brief Dual Sense support library
  */
-namespace dual_sense
+namespace dual_sense_hid
 {
 	static constexpr unsigned long VENDOR_ID = 1356ul; /*!< Vendor ID of DualSense gamepad */
 	static constexpr unsigned long PRODUCT_ID = 3302ul; /*!< Product ID of DualSense gamepad */
@@ -166,4 +166,4 @@ namespace dual_sense
 	};
 }
 
-#endif //DUAL_SENSE_GAMEPAD_HPP
+#endif //DUAL_SENSE_HID_GAMEPAD_HPP
