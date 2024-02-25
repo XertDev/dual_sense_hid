@@ -32,7 +32,7 @@ namespace dual_sense_hid::detail
 		uint8_t touchpad: 1;
 		uint8_t mute: 1;
 
-		uint8_t gap: 5;
+		[[maybe_unused]] uint8_t gap: 5;
 	};
 
 	struct ReportCommon
@@ -46,13 +46,13 @@ namespace dual_sense_hid::detail
 		uint8_t left_trigger;
 		uint8_t right_trigger;
 
-		uint8_t gap_0; // 1 for BT
+		[[maybe_unused]] uint8_t gap_0; // 1 for BT
 
 		ReportButtons buttons;
 
-		uint8_t gap_1;
+		[[maybe_unused]] uint8_t gap_1;
 
-		uint8_t timestamp_1[4];
+		[[maybe_unused]] uint8_t timestamp_1[4];
 
 		uint16_t gyro_pitch;
 		uint16_t gyro_yaw;
@@ -62,24 +62,24 @@ namespace dual_sense_hid::detail
 		uint16_t acceleration_y;
 		uint16_t acceleration_z;
 
-		uint8_t gap_2[4];
+		[[maybe_unused]] uint8_t gap_2[4];
 		uint8_t temperature;
 
 		uint8_t touch_data_0[4];
 		uint8_t touch_data_1[4];
 
-		uint8_t touch_timestamp;
+		[[maybe_unused]] uint8_t touch_timestamp;
 
 		uint8_t right_trigger_feedback: 4;
-		uint8_t right_trigger_unknown: 4;
+		[[maybe_unused]] uint8_t right_trigger_unknown: 4;
 		uint8_t left_trigger_feedback: 4;
-		uint8_t left_trigger_unknown: 4;
+		[[maybe_unused]] uint8_t left_trigger_unknown: 4;
 
-		uint8_t timestamp_2[4];
+		[[maybe_unused]] uint8_t timestamp_2[4];
 
-		uint8_t gap_3;
+		[[maybe_unused]] uint8_t gap_3;
 
-		uint8_t timestamp_3[4];
+		[[maybe_unused]] uint8_t timestamp_3[4];
 
 		uint8_t battery_level: 4;
 		uint8_t power_status: 4;
@@ -88,34 +88,34 @@ namespace dual_sense_hid::detail
 		uint8_t microphone: 1;
 		uint8_t muted: 1;
 
-		uint8_t gap_4: 5;
+		[[maybe_unused]] uint8_t gap_4: 5;
 
-		uint8_t gap_5[9];
+		[[maybe_unused]] uint8_t gap_5[9];
 	};
 
 	struct ReportUSB
 	{
-		uint8_t report_id;
+		[[maybe_unused]] uint8_t report_id;
 
 		ReportCommon common;
 	};
 
 	struct ReportBT
 	{
-		uint8_t report_id;
+		[[maybe_unused]] uint8_t report_id;
 
-		uint8_t gap1_;
+		[[maybe_unused]] uint8_t gap1_;
 
 		ReportCommon common;
 
-		uint8_t rest[13];
+		[[maybe_unused]] uint8_t rest[13];
 	};
 
 	//Feature reports
 
 	struct PairingInfoReport
 	{
-		uint8_t report_id;
+		[[maybe_unused]] uint8_t report_id;
 
 		uint8_t client_mac[6];
 		uint8_t gap[3];
@@ -126,7 +126,7 @@ namespace dual_sense_hid::detail
 
 	struct CalibrationReport
 	{
-		uint8_t report_id;
+		[[maybe_unused]] uint8_t report_id;
 
 		uint16_t gyro_pitch_bias;
 		uint16_t gyro_yaw_bias;
@@ -153,7 +153,7 @@ namespace dual_sense_hid::detail
 		uint16_t accel_z_plus;
 		uint16_t accel_z_minus;
 
-		uint8_t gap[2];
+		[[maybe_unused]] uint8_t gap[2];
 	};
 
 #pragma pack(pop)
