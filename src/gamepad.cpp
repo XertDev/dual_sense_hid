@@ -92,8 +92,8 @@ namespace dual_sense_hid
 		mute_light_mode_ = mute_light_mode;
 	}
 
-	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data, bool auto_push_settings)
-		:connection_type_(device_info.connection_type), auto_push_settings_(auto_push_settings)
+	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data)
+		:connection_type_(device_info.connection_type)
 	{
 		const auto &path = device_info.path;
 		device_ = hid_open_path(path.c_str());
@@ -282,6 +282,8 @@ namespace dual_sense_hid
 				accel_calibration.z_offset = accel_z_plus - accel_range/2;
 				accel_calibration.z_factor_denominator = accel_range;
 			}
+
+			calibration_data_loaded_ = true;
 		}
 
 		return calibration_data_;

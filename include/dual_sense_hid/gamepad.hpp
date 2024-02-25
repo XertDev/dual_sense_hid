@@ -124,7 +124,7 @@ namespace dual_sense_hid
 		 * @param device_info	Device info to create gamepad instance for
 		 * @param fetch_calibration_data Prefetch calibration data while initializing (default: true)
 		 */
-		explicit Gamepad(const DeviceInfo& device_info, bool fetch_calibration_data=true, bool auto_push_settings=false);
+		explicit Gamepad(const DeviceInfo& device_info, bool fetch_calibration_data=true);
 
 		/**
 		 * @brief Poll state of gamepad from report queue
@@ -155,7 +155,6 @@ namespace dual_sense_hid
 		hid_device* device_;
 		ConnectionType connection_type_;
 
-		bool auto_push_settings_ = false;
 		mutable bool calibration_data_loaded_ = false;
 		mutable Calibration calibration_data_;
 
