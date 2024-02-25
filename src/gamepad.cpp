@@ -2,8 +2,10 @@
 
 #include <locale>
 
+#include <cassert>
 #include <hidapi.h>
 
+#include "dual_sense_hid/detail/crc32.hpp"
 #include "dual_sense_hid/detail/helper.hpp"
 #include "dual_sense_hid/detail/report_input.hpp"
 #include "dual_sense_hid/detail/report_output.hpp"
@@ -33,6 +35,31 @@ namespace dual_sense_hid
 		inline T mult_frac(T value, T numerator, T denominator)
 		{
 			return (value / denominator) * numerator + ((value % denominator) * numerator) / denominator;
+		}
+
+		void push_report(const detail::SetStateReportCommon& common_report, ConnectionType connection_type, hid_device *dev)
+		{
+			if (connection_type == ConnectionType::USB)
+			{
+				detail::SetStateReportUSB report{};
+				report.report_id = 0x02;
+				report.common = common_report;
+
+				hid_write(dev, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportUSB));
+			}
+			else
+			{
+				assert(connection_type == ConnectionType::BLUETOOTH);
+
+				detail::SetStateReportBT report{};
+				report.report_id = 0x31;
+
+				report.hid = true;
+				report.common = common_report;
+				report.checksum = detail::crc32(reinterpret_cast<const uint8_t*>(&report), 74);
+
+				hid_write(dev, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportBT));
+			}
 		}
 	}
 
@@ -345,15 +372,7 @@ namespace dual_sense_hid
 			common_report.touchpad_led_color.blue_led = lights_.touchpad_light_blue_;
 		}
 
-
-		if (connection_type_ == ConnectionType::USB)
-		{
-			detail::SetStateReportUSB report{};
-			report.report_id = 0x02;
-			report.common = common_report;
-
-			hid_write(device_, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportUSB));
-		}
+		push_report(common_report, connection_type_, device_);
 	}
 
 	Gamepad::Lights& Gamepad::lights()
@@ -364,22 +383,8 @@ namespace dual_sense_hid
 	void Gamepad::take_lights_control()
 	{
 		detail::SetStateReportCommon common_report{};
+		common_report.reset_lights = true;
 
-		if(!lights_reset_)
-		{
-			common_report.reset_lights = true;
-			lights_reset_ = true;
-		}
-
-		if (connection_type_ == ConnectionType::USB)
-		{
-			detail::SetStateReportUSB report{};
-			report.report_id = 0x02;
-			report.common = common_report;
-
-			hid_write(device_, reinterpret_cast<uint8_t*>(&report), sizeof(detail::SetStateReportUSB));
-		}
+		push_report(common_report, connection_type_, device_);
 	}
-
-
 }

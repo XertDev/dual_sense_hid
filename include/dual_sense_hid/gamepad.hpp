@@ -158,7 +158,6 @@ namespace dual_sense_hid
 		mutable bool calibration_data_loaded_ = false;
 		mutable Calibration calibration_data_;
 
-		bool lights_reset_ = false;
 		Lights lights_;
 
 		void take_lights_control();

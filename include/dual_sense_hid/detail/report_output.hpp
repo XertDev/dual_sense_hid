@@ -150,9 +150,23 @@
 			SetStateReportCommon common;
 		};
 
+		struct SetStateReportBT
+		{
+			uint8_t report_id;
+			uint8_t gap_1: 1;
+			uint8_t hid: 1;
+			uint8_t gap_2: 6;
+
+			SetStateReportCommon common;
+
+			uint8_t gap_3[25];
+			uint32_t checksum;
+		};
+
 	#pragma pack(pop)
 
 		static_assert(sizeof(SetStateReportCommon) == 47);
 		static_assert(sizeof(SetStateReportUSB) == 48);
+		static_assert(sizeof(SetStateReportBT) == 78);
 	}
 #endif //DUAL_SENSE_HID_REPORT_OUTPUT_HPP
