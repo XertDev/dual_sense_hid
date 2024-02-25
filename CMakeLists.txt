@@ -7,8 +7,6 @@ project(
 )
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-option(ENABLE_TESTING "Enable building of test" FALSE)
-
 # Warnings config
 add_library(warnings_target INTERFACE)
 if(MSVC)
@@ -54,7 +52,7 @@ endif()
 # Project options config
 
 add_library(options_target INTERFACE)
-target_compile_features(options_target INTERFACE cxx_std_20)
+target_compile_features(options_target INTERFACE cxx_std_23)
 
 if(!MSVC)
     option(ENABLE_COVERAGE "Enable coverage reporting (gss/clang)" FALSE)
@@ -103,9 +101,11 @@ target_sources(
         include/dual_sense_hid/calibration.hpp
         include/dual_sense_hid/detail/report_input.hpp
         include/dual_sense_hid/detail/report_output.hpp
+        include/dual_sense_hid/detail/crc32.hpp
         include/dual_sense_hid/detail/helper.hpp
 
         src/gamepad.cpp
+        src/detail/crc32.cpp
 )
 
 include(GNUInstallDirs)
@@ -161,5 +161,10 @@ if(ENABLE_DOCS)
             COMMENT "Generating API documentation with Doxygen"
             VERBATIM
     )
+endif()
 
+option(ENABLE_TESTS "Enable tests" FALSE)
+if(ENABLE_TESTS)
+    enable_testing()
+    add_subdirectory(test)
 endif()
