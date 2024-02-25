@@ -46,7 +46,7 @@ namespace dual_sense_hid::detail
 
 	uint32_t crc32(const unsigned char* buffer, std::size_t size)
 	{
-		uint32_t checksum = 0x04c11db7;
+		uint32_t checksum = 0xeada2d49;
 
 		for(size_t i = 0; i < size; ++i)
 		{
