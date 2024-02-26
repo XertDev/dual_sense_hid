@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>dual_sense namespace | Dual sense</title>
+  <title>dual_sense namespace | Dual sense HID</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -13,7 +13,7 @@
 <header><nav id="navigation">
   <div class="m-container">
     <div class="m-row">
-      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">Dual sense</a>
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">Dual sense HID</a>
       <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
         <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
           <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
@@ -45,137 +45,9 @@
       <div class="m-col-l-10 m-push-l-1">
         <h1>
           dual_sense <span class="m-thin">namespace</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense_hid/gamepad.hpp&gt;</a></div>
         </h1>
         <p>Dual Sense support library.</p>
-        <nav class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            <li>
-              Reference
-              <ul>
-                <li><a href="#nested-classes">Classes</a></li>
-                <li><a href="#enum-members">Enums</a></li>
-                <li><a href="#func-members">Functions</a></li>
-                <li><a href="#var-members">Variables</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        <section id="nested-classes">
-          <h2><a href="#nested-classes">Classes</a></h2>
-          <dl class="m-doc">
-            <dt>
-              struct <a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a>
-            </dt>
-            <dd><a href="structdual__sense_1_1Calibration.html" class="m-doc">Calibration</a> data for accelerometer &amp; gyroscope.</dd>
-            <dt>
-              struct <a href="structdual__sense_1_1DeviceInfo.html" class="m-doc">DeviceInfo</a>
-            </dt>
-            <dd>Enumerated info of connected gamepad.</dd>
-            <dt>
-              class <a href="classdual__sense_1_1Gamepad.html" class="m-doc">Gamepad</a>
-            </dt>
-            <dd><a href="classdual__sense_1_1Gamepad.html" class="m-doc">Gamepad</a> handle used to poll state from device.</dd>
-            <dt>
-              struct <a href="structdual__sense_1_1State.html" class="m-doc">State</a>
-            </dt>
-            <dd><a href="structdual__sense_1_1State.html" class="m-doc">State</a> of analogs, buttons, etc. of gamepad.</dd>
-          </dl>
-        </section>
-        <section id="enum-members">
-          <h2><a href="#enum-members">Enums</a></h2>
-          <dl class="m-doc">
-            <dt>
-              <span class="m-doc-wrap-bumper">enum class <a href="#a13f3134209f4bddcedaadd533b25c5ee" class="m-doc">ConnectionType</a>: uint8_t { </span><span class="m-doc-wrap"><a href="#a13f3134209f4bddcedaadd533b25c5eea7aca5ec618f7317328dcd7014cf9bdcf" class="m-doc">USB</a>,
-              <a href="#a13f3134209f4bddcedaadd533b25c5eea8de8a62c3191fb6cf61e0ac4b2b59045" class="m-doc">BLUETOOTH</a> }</span>
-            </dt>
-            <dd>method of connection</dd>
-          </dl>
-        </section>
-        <section id="func-members">
-          <h2><a href="#func-members">Functions</a></h2>
-          <dl class="m-doc">
-            <dt>
-              <span class="m-doc-wrap-bumper">auto <a href="#af927e2c551698be4cd96d92b15894f7a" class="m-doc">enumerate</a>(</span><span class="m-doc-wrap">) -&gt; std::vector&lt;<a href="structdual__sense_1_1DeviceInfo.html" class="m-doc">DeviceInfo</a>&gt;</span>
-            </dt>
-            <dd>Enumerate connected gamepads.</dd>
-          </dl>
-        </section>
-        <section id="var-members">
-          <h2><a href="#var-members">Variables</a></h2>
-          <dl class="m-doc">
-            <dt>
-              static unsigned long <a href="#a92acff87c50c4d3a4ca4e80871ae420b" class="m-doc">VENDOR_ID</a> <span class="m-label m-flat m-primary">constexpr</span>
-            </dt>
-            <dd></dd>
-            <dt>
-              static unsigned long <a href="#ab00522cbd23f300de92b2af90599d85b" class="m-doc">PRODUCT_ID</a> <span class="m-label m-flat m-primary">constexpr</span>
-            </dt>
-            <dd></dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Enum documentation</h2>
-          <section class="m-doc-details" id="a13f3134209f4bddcedaadd533b25c5ee"><div>
-            <h3>
-              enum class dual_<wbr />sense::<wbr /><a href="#a13f3134209f4bddcedaadd533b25c5ee" class="m-doc-self">ConnectionType</a>: uint8_t
-              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="enums_8hpp.html">&lt;dual_sense/enums.hpp&gt;</a></div>
-            </h3>
-            <p>method of connection</p>
-            <table class="m-table m-fullwidth m-flat m-doc">
-              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
-              <tbody>
-                <tr>
-                  <td><a href="#a13f3134209f4bddcedaadd533b25c5eea7aca5ec618f7317328dcd7014cf9bdcf" class="m-doc-self" id="a13f3134209f4bddcedaadd533b25c5eea7aca5ec618f7317328dcd7014cf9bdcf">USB</a></td>
-                  <td>
-<p>USB connection</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a href="#a13f3134209f4bddcedaadd533b25c5eea8de8a62c3191fb6cf61e0ac4b2b59045" class="m-doc-self" id="a13f3134209f4bddcedaadd533b25c5eea8de8a62c3191fb6cf61e0ac4b2b59045">BLUETOOTH</a></td>
-                  <td>
-<p>Bluetooth connection</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div></section>
-        </section>
-        <section>
-          <h2>Function documentation</h2>
-          <section class="m-doc-details" id="af927e2c551698be4cd96d92b15894f7a"><div>
-            <h3>
-              <span class="m-doc-wrap-bumper">std::vector&lt;<a href="structdual__sense_1_1DeviceInfo.html" class="m-doc">DeviceInfo</a>&gt; dual_<wbr />sense::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af927e2c551698be4cd96d92b15894f7a" class="m-doc-self">enumerate</a>(</span><span class="m-doc-wrap">)</span></span>
-              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense/gamepad.hpp&gt;</a></div>
-            </h3>
-            <p>Enumerate connected gamepads.</p>
-            <table class="m-table m-fullwidth m-flat">
-              <tfoot>
-                <tr>
-                  <th style="width: 1%">Returns</th>
-                  <td>A vector of info for connected devices</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div></section>
-        </section>
-        <section>
-          <h2>Variable documentation</h2>
-          <section class="m-doc-details" id="a92acff87c50c4d3a4ca4e80871ae420b"><div>
-            <h3>
-              static unsigned long dual_<wbr />sense::<wbr /><a href="#a92acff87c50c4d3a4ca4e80871ae420b" class="m-doc-self">VENDOR_ID</a> <span class="m-label m-primary">constexpr</span>
-              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense/gamepad.hpp&gt;</a></div>
-            </h3>
-<p>Vendor ID of DualSense gamepad</p>
-          </div></section>
-          <section class="m-doc-details" id="ab00522cbd23f300de92b2af90599d85b"><div>
-            <h3>
-              static unsigned long dual_<wbr />sense::<wbr /><a href="#ab00522cbd23f300de92b2af90599d85b" class="m-doc-self">PRODUCT_ID</a> <span class="m-label m-primary">constexpr</span>
-              <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense/gamepad.hpp&gt;</a></div>
-            </h3>
-<p>Product ID of DualSense gamepad</p>
-          </div></section>
-        </section>
       </div>
     </div>
   </div>
@@ -220,7 +92,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>Dual sense. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+        <p>Dual sense HID. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
       </div>
     </div>
   </div>

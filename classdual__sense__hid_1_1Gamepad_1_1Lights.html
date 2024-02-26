@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>dual_sense_hid::Gamepad::Lights class | Dual sense HID</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">Dual sense HID</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespacedual__sense__hid.html">dual_sense_hid</a>::<wbr/></span><span class="m-breadcrumb"><a href="classdual__sense__hid_1_1Gamepad.html">Gamepad</a>::<wbr/></span>Lights <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="gamepad_8hpp.html">&lt;dual_sense_hid/gamepad.hpp&gt;</a></div>
+        </h1>
+        <p>Proxy object for calls which mutate state of gamepad&#x27;s lights.</p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#pub-types">Public types</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="pub-types">
+          <h2><a href="#pub-types">Public types</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">enum class <a href="#ae46084208064676e3bd42178dc64cd49" class="m-doc">PlayerIndicatorBrightness</a>: uint8_t { </span><span class="m-doc-wrap"><a href="#ae46084208064676e3bd42178dc64cd49a26a4b44a837bf97b972628509912b4a5" class="m-doc">MAX</a> = 0,
+              <a href="#ae46084208064676e3bd42178dc64cd49ac87f3be66ffc3c0d4249f1c2cc5f3cce" class="m-doc">MEDIUM</a> = 1,
+              <a href="#ae46084208064676e3bd42178dc64cd49a41bc94cbd8eebea13ce0491b2ac11b88" class="m-doc">LOW</a> = 2 }</span>
+            </dt>
+            <dd>Player Indicator Brightness level.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">enum class <a href="#a3e7ea87348ddc772cdef6677d301b4eb" class="m-doc">PlayerIndicator</a>: uint8_t { </span><span class="m-doc-wrap"><a href="#a3e7ea87348ddc772cdef6677d301b4ebad939644a2e9d5931abfcf8daa45a1bf5" class="m-doc">PLAYER_ONE</a> = 0,
+              <a href="#a3e7ea87348ddc772cdef6677d301b4ebab4e14ba46493b1c7f7d54d60c581495a" class="m-doc">PLAYER_TWO</a> = 1,
+              <a href="#a3e7ea87348ddc772cdef6677d301b4ebac45ed3c4b446a59be4d73191dcfc46d7" class="m-doc">PLAYER_THREE</a> = 2,
+              <a href="#a3e7ea87348ddc772cdef6677d301b4ebab84ec288672a3dbd5e89ce73bdf01d6d" class="m-doc">PLAYER_FOUR</a> = 3,
+              <a href="#a3e7ea87348ddc772cdef6677d301b4ebaf5cb8e6915ad45ba8c4411ac8ad81497" class="m-doc">PLAYER_FIVE</a> = 4,
+              <a href="#a3e7ea87348ddc772cdef6677d301b4eba055c1a591abb0e8cd86dc969727bcc0b" class="m-doc">DISABLED</a> = 5 }</span>
+            </dt>
+            <dd>Player Indicator state.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">enum class <a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56" class="m-doc">MuteLightMode</a>: uint8_t { </span><span class="m-doc-wrap"><a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56a88559a0cfd8250c9d65970cc145c92d4" class="m-doc">OFF</a>,
+              <a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56a90651ebea9a35ec4e018c8157492e17c" class="m-doc">ON</a>,
+              <a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56adef2338338c9e1958ccf56d55686be32" class="m-doc">BREATHING</a> }</span>
+            </dt>
+            <dd>Mute light mode.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#af4cc8b734e127799169b332ab29bf056" class="m-doc">set_mute_light_mode</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ac0f698a28737f0bc0f59aa1d6b5e5d56" class="m-doc">MuteLightMode</a> mute_light_mode)</span>
+            </dt>
+            <dd>Set light mode of mute button.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a2d5fad641211741cde0353fcef88bf6d" class="m-doc">set_player_indicator</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#a3e7ea87348ddc772cdef6677d301b4eb" class="m-doc">PlayerIndicator</a> indicator)</span>
+            </dt>
+            <dd>Set indicator which represents player number.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#af7e17649ff0897c69cff4457decce17a" class="m-doc">set_player_indicator_brightness</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ae46084208064676e3bd42178dc64cd49" class="m-doc">PlayerIndicatorBrightness</a> brightness)</span>
+            </dt>
+            <dd>Set brightness level of player indicator.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a0dad656d7a9d3827d44eec54aa81f1ef" class="m-doc">set_touchpad_light_color</a>(</span><span class="m-doc-wrap">uint8_t red,
+              uint8_t green,
+              uint8_t blue)</span>
+            </dt>
+            <dd>Set color of touchpad backlight.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-doc-details" id="ae46084208064676e3bd42178dc64cd49"><div>
+            <h3>
+              enum class dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /><a href="#ae46084208064676e3bd42178dc64cd49" class="m-doc-self">PlayerIndicatorBrightness</a>: uint8_t
+            </h3>
+            <p>Player Indicator Brightness level.</p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#ae46084208064676e3bd42178dc64cd49a26a4b44a837bf97b972628509912b4a5" class="m-doc-self" id="ae46084208064676e3bd42178dc64cd49a26a4b44a837bf97b972628509912b4a5">MAX</a></td>
+                  <td>
+<p>Maximum level</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae46084208064676e3bd42178dc64cd49ac87f3be66ffc3c0d4249f1c2cc5f3cce" class="m-doc-self" id="ae46084208064676e3bd42178dc64cd49ac87f3be66ffc3c0d4249f1c2cc5f3cce">MEDIUM</a></td>
+                  <td>
+<p>Medium level</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ae46084208064676e3bd42178dc64cd49a41bc94cbd8eebea13ce0491b2ac11b88" class="m-doc-self" id="ae46084208064676e3bd42178dc64cd49a41bc94cbd8eebea13ce0491b2ac11b88">LOW</a></td>
+                  <td>
+<p>Low level</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a3e7ea87348ddc772cdef6677d301b4eb"><div>
+            <h3>
+              enum class dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /><a href="#a3e7ea87348ddc772cdef6677d301b4eb" class="m-doc-self">PlayerIndicator</a>: uint8_t
+            </h3>
+            <p>Player Indicator state.</p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4ebad939644a2e9d5931abfcf8daa45a1bf5" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4ebad939644a2e9d5931abfcf8daa45a1bf5">PLAYER_ONE</a></td>
+                  <td>
+<p>Player one (1 LED)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4ebab4e14ba46493b1c7f7d54d60c581495a" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4ebab4e14ba46493b1c7f7d54d60c581495a">PLAYER_TWO</a></td>
+                  <td>
+<p>Player two (2 LEDs)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4ebac45ed3c4b446a59be4d73191dcfc46d7" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4ebac45ed3c4b446a59be4d73191dcfc46d7">PLAYER_THREE</a></td>
+                  <td>
+<p>Player three (3 LEDs)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4ebab84ec288672a3dbd5e89ce73bdf01d6d" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4ebab84ec288672a3dbd5e89ce73bdf01d6d">PLAYER_FOUR</a></td>
+                  <td>
+<p>Player four (4 LEDs)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4ebaf5cb8e6915ad45ba8c4411ac8ad81497" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4ebaf5cb8e6915ad45ba8c4411ac8ad81497">PLAYER_FIVE</a></td>
+                  <td>
+<p>Player five (5 LEDs)</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a3e7ea87348ddc772cdef6677d301b4eba055c1a591abb0e8cd86dc969727bcc0b" class="m-doc-self" id="a3e7ea87348ddc772cdef6677d301b4eba055c1a591abb0e8cd86dc969727bcc0b">DISABLED</a></td>
+                  <td>
+<p>LEDs disabled</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac0f698a28737f0bc0f59aa1d6b5e5d56"><div>
+            <h3>
+              enum class dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /><a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56" class="m-doc-self">MuteLightMode</a>: uint8_t
+            </h3>
+            <p>Mute light mode.</p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56a88559a0cfd8250c9d65970cc145c92d4" class="m-doc-self" id="ac0f698a28737f0bc0f59aa1d6b5e5d56a88559a0cfd8250c9d65970cc145c92d4">OFF</a></td>
+                  <td>
+<p>Off</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56a90651ebea9a35ec4e018c8157492e17c" class="m-doc-self" id="ac0f698a28737f0bc0f59aa1d6b5e5d56a90651ebea9a35ec4e018c8157492e17c">ON</a></td>
+                  <td>
+<p>On</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#ac0f698a28737f0bc0f59aa1d6b5e5d56adef2338338c9e1958ccf56d55686be32" class="m-doc-self" id="ac0f698a28737f0bc0f59aa1d6b5e5d56adef2338338c9e1958ccf56d55686be32">BREATHING</a></td>
+                  <td>
+<p>Pulsating</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="af4cc8b734e127799169b332ab29bf056"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af4cc8b734e127799169b332ab29bf056" class="m-doc-self">set_mute_light_mode</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ac0f698a28737f0bc0f59aa1d6b5e5d56" class="m-doc">MuteLightMode</a> mute_light_mode)</span></span>
+            </h3>
+            <p>Set light mode of mute button.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">mute_light_mode</td>
+                  <td>mute light mode to be set on gamepad after state push</td>
+                </tr>
+              </tbody>
+            </table>
+<aside class="m-note m-default"><h4>See also</h4><p><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ac0f698a28737f0bc0f59aa1d6b5e5d56" class="m-doc">MuteLightMode</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a2d5fad641211741cde0353fcef88bf6d"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2d5fad641211741cde0353fcef88bf6d" class="m-doc-self">set_player_indicator</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#a3e7ea87348ddc772cdef6677d301b4eb" class="m-doc">PlayerIndicator</a> indicator)</span></span>
+            </h3>
+            <p>Set indicator which represents player number.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">indicator</td>
+                  <td>player number (1-5) or disabled</td>
+                </tr>
+              </tbody>
+            </table>
+<aside class="m-note m-default"><h4>See also</h4><p><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#a3e7ea87348ddc772cdef6677d301b4eb" class="m-doc">PlayerIndicator</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="af7e17649ff0897c69cff4457decce17a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af7e17649ff0897c69cff4457decce17a" class="m-doc-self">set_player_indicator_brightness</a>(</span><span class="m-doc-wrap"><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ae46084208064676e3bd42178dc64cd49" class="m-doc">PlayerIndicatorBrightness</a> brightness)</span></span>
+            </h3>
+            <p>Set brightness level of player indicator.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">brightness</td>
+                  <td>brightness level</td>
+                </tr>
+              </tbody>
+            </table>
+<aside class="m-note m-default"><h4>See also</h4><p><a href="classdual__sense__hid_1_1Gamepad_1_1Lights.html#ae46084208064676e3bd42178dc64cd49" class="m-doc">PlayerIndicatorBrightness</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a0dad656d7a9d3827d44eec54aa81f1ef"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void dual_sense_hid::<wbr />Gamepad::<wbr />Lights::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0dad656d7a9d3827d44eec54aa81f1ef" class="m-doc-self">set_touchpad_light_color</a>(</span><span class="m-doc-wrap">uint8_t red,
+              uint8_t green,
+              uint8_t blue)</span></span>
+            </h3>
+            <p>Set color of touchpad backlight.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">red</td>
+                  <td>brightness level</td>
+                </tr>
+                <tr>
+                  <td>green</td>
+                  <td>brightness level</td>
+                </tr>
+                <tr>
+                  <td>blue</td>
+                  <td>brightness level</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>Dual sense HID. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

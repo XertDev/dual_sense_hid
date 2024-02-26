@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>dual_sense::State::Battery struct | Dual sense</title>
+  <title>dual_sense_hid::State::Audio struct | Dual sense HID</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
   <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
   <link rel="icon" href="favicon-dark.png" type="image/png" />
@@ -13,7 +13,7 @@
 <header><nav id="navigation">
   <div class="m-container">
     <div class="m-row">
-      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">Dual sense</a>
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">Dual sense HID</a>
       <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
         <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
           <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
@@ -44,10 +44,10 @@
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
         <h1>
-          <span class="m-breadcrumb"><a href="namespacedual__sense.html">dual_sense</a>::<wbr/></span><span class="m-breadcrumb"><a href="structdual__sense_1_1State.html">State</a>::<wbr/></span>Battery <span class="m-thin">struct</span>
-          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="state_8hpp.html">&lt;dual_sense/state.hpp&gt;</a></div>
+          <span class="m-breadcrumb"><a href="namespacedual__sense__hid.html">dual_sense_hid</a>::<wbr/></span><span class="m-breadcrumb"><a href="structdual__sense__hid_1_1State.html">State</a>::<wbr/></span>Audio <span class="m-thin">struct</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="state_8hpp.html">&lt;dual_sense_hid/state.hpp&gt;</a></div>
         </h1>
-        <p><a href="structdual__sense_1_1State.html" class="m-doc">State</a> of gamepad&#x27;s battery.</p>
+        <p>Information about audio capabilities.</p>
         <nav class="m-block m-default">
           <h3>Contents</h3>
           <ul>
@@ -63,28 +63,38 @@
           <h2><a href="#pub-attribs">Public variables</a></h2>
           <dl class="m-doc">
             <dt>
-              uint8_t <a href="#a6af5b86ab572a814ad0fe0ebf76f41bb" class="m-doc">level</a>
+              bool <a href="#a95fa07032bcb5ebe93e3791f5eab43a0" class="m-doc">muted</a>
             </dt>
             <dd></dd>
             <dt>
-              <a href="structdual__sense_1_1State.html#a66580f53231d39aaf609d82b21e0d719" class="m-doc">PowerStatus</a> <a href="#ad9f12d0017423599860067b685e46d68" class="m-doc">power_status</a>
+              bool <a href="#ad6f54a3cb64507a1ea03aa307ec9b2ee" class="m-doc">headphones_connected</a>
+            </dt>
+            <dd></dd>
+            <dt>
+              bool <a href="#a163b332a1938211be6a62980cae14098" class="m-doc">microphone_connected</a>
             </dt>
             <dd></dd>
           </dl>
         </section>
         <section>
           <h2>Variable documentation</h2>
-          <section class="m-doc-details" id="a6af5b86ab572a814ad0fe0ebf76f41bb"><div>
+          <section class="m-doc-details" id="a95fa07032bcb5ebe93e3791f5eab43a0"><div>
             <h3>
-              uint8_t dual_sense::<wbr />State::<wbr />Battery::<wbr /><a href="#a6af5b86ab572a814ad0fe0ebf76f41bb" class="m-doc-self">level</a>
+              bool dual_sense_hid::<wbr />State::<wbr />Audio::<wbr /><a href="#a95fa07032bcb5ebe93e3791f5eab43a0" class="m-doc-self">muted</a>
             </h3>
-<p>Current battery level</p>
+<p>true if internal microphone is muted. Not related to state of led indicator</p>
           </div></section>
-          <section class="m-doc-details" id="ad9f12d0017423599860067b685e46d68"><div>
+          <section class="m-doc-details" id="ad6f54a3cb64507a1ea03aa307ec9b2ee"><div>
             <h3>
-              <a href="structdual__sense_1_1State.html#a66580f53231d39aaf609d82b21e0d719" class="m-doc">PowerStatus</a> dual_sense::<wbr />State::<wbr />Battery::<wbr /><a href="#ad9f12d0017423599860067b685e46d68" class="m-doc-self">power_status</a>
+              bool dual_sense_hid::<wbr />State::<wbr />Audio::<wbr /><a href="#ad6f54a3cb64507a1ea03aa307ec9b2ee" class="m-doc-self">headphones_connected</a>
             </h3>
-<p>Power status</p>
+<p>Headphones connected via headphone jack socket</p>
+          </div></section>
+          <section class="m-doc-details" id="a163b332a1938211be6a62980cae14098"><div>
+            <h3>
+              bool dual_sense_hid::<wbr />State::<wbr />Audio::<wbr /><a href="#a163b332a1938211be6a62980cae14098" class="m-doc-self">microphone_connected</a>
+            </h3>
+<p>Headphones with microphone built-in</p>
           </div></section>
         </section>
       </div>
@@ -131,7 +141,7 @@
   <div class="m-container">
     <div class="m-row">
       <div class="m-col-l-10 m-push-l-1">
-        <p>Dual sense. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+        <p>Dual sense HID. Created with <a href="https://doxygen.org/">Doxygen</a> 1.8.17 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
       </div>
     </div>
   </div>
