@@ -14,7 +14,7 @@ struct hid_device_;
 typedef struct hid_device_ hid_device;
 
 /**
- * @namespace dual_sense
+ * @namespace dual_sense_hid
  * @brief Dual Sense support library
  */
 namespace dual_sense_hid
