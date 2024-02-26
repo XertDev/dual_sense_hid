@@ -97,6 +97,12 @@ namespace dual_sense_hid
 			void set_player_indicator_brightness(PlayerIndicatorBrightness brightness);
 
 			/**
+			 * @brief Control player indicator fade (instant changes or smooth fading in)
+			 * @param enabled fade enabled
+			 */
+			 void enable_player_indicator_fade(bool enabled);
+
+			/**
 			 * @brief Set color of touchpad backlight
 			 * @param red brightness level
 			 * @param green brightness level
@@ -108,6 +114,7 @@ namespace dual_sense_hid
 			MuteLightMode mute_light_mode_;
 
 			PlayerIndicator player_indicator_;
+			bool player_indicator_fade_enabled_;
 			PlayerIndicatorBrightness player_indicator_brightness_;
 
 			uint8_t touchpad_light_red_;
