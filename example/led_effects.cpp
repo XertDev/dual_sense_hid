@@ -122,6 +122,7 @@ void gradient_touchpad_backlight_demo(Gamepad& gamepad)
 void player_indicator_demo(Gamepad& gamepad)
 {
 	auto& lights = gamepad.lights();
+	lights.enable_player_indicator_fade(false);
 
 	std::this_thread::sleep_for(1s);
 
@@ -156,6 +157,79 @@ void player_indicator_demo(Gamepad& gamepad)
 	gamepad.push_state();
 
 	std::this_thread::sleep_for(2s);
+
+	std::cout << "1..";
+	std::flush(std::cout);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_ONE);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(2s);
+
+	std::cout << "0" << std::endl;
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.push_state();
+}
+
+void player_indicator_fade_demo(Gamepad& gamepad)
+{
+	auto& lights = gamepad.lights();
+	lights.enable_player_indicator_fade(true);
+
+	std::this_thread::sleep_for(1s);
+
+	std::cout << "5..";
+	std::flush(std::cout);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_FIVE);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
+
+	std::cout << "4..";
+	std::flush(std::cout);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_FOUR);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
+
+	std::cout << "3..";
+	std::flush(std::cout);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_THREE);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(2s);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
+
+	std::cout << "2..";
+	std::flush(std::cout);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::PLAYER_TWO);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(2s);
+
+	gamepad.lights().set_player_indicator(dual_sense_hid::Gamepad::Lights::PlayerIndicator::DISABLED);
+	gamepad.push_state();
+
+	std::this_thread::sleep_for(1s);
 
 	std::cout << "1..";
 	std::flush(std::cout);
@@ -228,7 +302,11 @@ int main(int argc, char **argv)
 
 	gradient_touchpad_backlight_demo(demo_device);
 
+	std::cout << "Countdown..." << std::endl;
 	player_indicator_demo(demo_device);
+
+	std::cout << "Countdown with fade..." << std::endl;
+	player_indicator_fade_demo(demo_device);
 
 	mute_mic_indicator_demo(demo_device);
 

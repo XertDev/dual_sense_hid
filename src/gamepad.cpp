@@ -114,9 +114,16 @@ namespace dual_sense_hid
 
 	void Gamepad::Lights::set_mute_light_mode(MuteLightMode mute_light_mode)
 	{
-		changed_ |= mute_light_mode_ == mute_light_mode;
+		changed_ |= mute_light_mode_ != mute_light_mode;
 
 		mute_light_mode_ = mute_light_mode;
+	}
+
+	void Gamepad::Lights::enable_player_indicator_fade(bool enabled)
+	{
+		changed_ |= enabled != player_indicator_fade_enabled_;
+
+		player_indicator_fade_enabled_ = enabled;
 	}
 
 	Gamepad::Gamepad(const DeviceInfo &device_info, bool fetch_calibration_data)
@@ -366,6 +373,8 @@ namespace dual_sense_hid
 				common_report.player_led.led_1 = true;
 				common_report.player_led.led_5 = true;
 			}
+
+			common_report.player_led.led_fade = !lights_.player_indicator_fade_enabled_;
 
 			common_report.touchpad_led_color.red_led = lights_.touchpad_light_red_;
 			common_report.touchpad_led_color.green_led = lights_.touchpad_light_green_;
